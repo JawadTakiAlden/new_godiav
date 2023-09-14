@@ -45,14 +45,6 @@ class BranchController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Branch $branch)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Branch $branch)
@@ -65,6 +57,7 @@ class BranchController extends Controller
      */
     public function destroy(Branch $branch)
     {
-        //
+        $branch->delete();
+        return $this->success($branch , 'Branch Deleted Successfully From Our System');
     }
 }
