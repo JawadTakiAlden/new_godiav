@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:7',
-            'type' => 'in:'
+            'type' => 'in:waiter,kitchen,accountant,admin,supplier'
         ];
     }
 }
