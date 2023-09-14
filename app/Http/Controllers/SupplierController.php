@@ -37,7 +37,7 @@ class SupplierController extends Controller
 }
 
 
-    public function delete(Supplier $supplier){
+    public function destroy(Supplier $supplier){
         $supplier->delete();
         return $this->success($supplier , 'Supplier Deleted Successfully From Our System');
     }

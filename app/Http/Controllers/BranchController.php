@@ -37,9 +37,6 @@ class BranchController extends Controller
         return BranchResource::make($branch);
 }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateBranchRequest $requst, Branch $branch) {
         $requst->validated($requst->all());
         $branch->update($requst->all());
@@ -51,6 +48,7 @@ class BranchController extends Controller
      */
     public function destroy(Branch $branch)
     {
-        //
+        $branch->delete();
+        return $this->success($branch , 'Branch Deleted Successfully From Our System');
     }
 }
