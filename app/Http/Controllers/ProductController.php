@@ -36,7 +36,7 @@ class ProductController extends Controller
         return ProductResource::make($product);
 }
 
-    public function delete(Product $product){
+    public function destroy(Product $product){
         $product->delete();
         return $this->success($product,'Product Deleted Successfully From Our System');
     }
