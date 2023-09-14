@@ -29,6 +29,7 @@ class UserController extends Controller
         return UserResource::make($user);
     }
 
+<<<<<<< HEAD
     public function show(User $user) {
         // if (Checker::isParamsFoundInRequest()){
         //     return Checker::CheckerResponse();
@@ -38,6 +39,9 @@ class UserController extends Controller
 
 
     public function delete(User $user){
+=======
+    public function destroy(User $user){
+>>>>>>> bedc51f102be1bd833adc8a16836243ee523261d
         $user->delete();
         return $this->success($user , 'User Deleted Successfully From Our System');
     }
