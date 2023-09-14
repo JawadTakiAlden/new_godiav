@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredient extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+
+    public function supplier(){
+        return $this->belongsToMany(Supplier::class);
+    }
 }

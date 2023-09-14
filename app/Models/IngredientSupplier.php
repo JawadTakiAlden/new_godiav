@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class IngredientSupplier extends Model
 {
     use HasFactory;
+
+    public function supplier(){
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function ingredient(){
+        return $this->belongsTo(Ingredient::class);
+    }
 }
