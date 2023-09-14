@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
         $category = Category::create($request->all());
 
-        return CategoryResource::make($category)
+        return CategoryResource::make($category);
     }
 
     /**
@@ -65,7 +65,7 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        return CategoryResource::make($category)
+        return CategoryResource::make($category);
     }
 
     /**
@@ -89,6 +89,6 @@ class CategoryController extends Controller
             'visibility' => ! boolval($category->visibility),
         ]);
 
-        return CategoryResource::make($category)
+        return CategoryResource::make($category);
     }
 }
