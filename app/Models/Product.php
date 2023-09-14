@@ -11,7 +11,7 @@ class Product extends Model
     protected $guarded = ['id'];
 
     public function ingredients() {
-        return $this->hasMany(ingredients::class);
+        return $this->hasMany(Ingredient::class);
     }
 
     public function category(){
