@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomResponse\ApiResponse;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use App\SecurityChecker\Checker;
-use App\Traits\CustomResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
 
-    use CustomResponse;
+    use ApiResponse;
     /**
      * Display a listing of the resource.
      */
@@ -79,7 +78,7 @@ class CategoryController extends Controller
         // }
         $category->delete();
 
-        return $this->customResponse($category , 'One Category Deleted Successfully');
+        return $this->success($category , 'One Category Deleted Successfully');
     }
 
     public function switchCategory(Category $category){
