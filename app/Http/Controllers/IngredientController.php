@@ -27,6 +27,13 @@ class IngredientController extends Controller
         $ingredient->update($requst->all());
         return IngredientResource::make($ingredient);
     }
+    public function show(Ingredient $ingredient) {
+            // if (Checker::isParamsFoundInRequest()){
+            //     return Checker::CheckerResponse();
+            // }
+            return IngredientResource::make($ingredient);
+    }
+    
 
     public function delete(Ingredient $ingredient){
         $ingredient->delete();

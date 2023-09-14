@@ -29,6 +29,14 @@ class UserController extends Controller
         return UserResource::make($user);
     }
 
+    public function show(User $user) {
+        // if (Checker::isParamsFoundInRequest()){
+        //     return Checker::CheckerResponse();
+        // }
+        return UserResource::make($user);
+}
+
+
     public function delete(User $user){
         $user->delete();
         return $this->success($user , 'User Deleted Successfully From Our System');

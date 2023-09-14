@@ -29,6 +29,14 @@ class SupplierController extends Controller
         return SupplierResource::make($supplier);
     }
 
+    public function show(Supplier $supplier) {
+        // if (Checker::isParamsFoundInRequest()){
+        //     return Checker::CheckerResponse();
+        // }
+        return SupplierResource::make($supplier);
+}
+
+
     public function delete(Supplier $supplier){
         $supplier->delete();
         return $this->success($supplier , 'Supplier Deleted Successfully From Our System');

@@ -29,6 +29,13 @@ class ProductController extends Controller
         return ProductResource::make($product);
     }
 
+    public function show(Product $product) {
+        // if (Checker::isParamsFoundInRequest()){
+        //     return Checker::CheckerResponse();
+        // }
+        return ProductResource::make($product);
+}
+
     public function delete(Product $product){
         $product->delete();
         return $this->success($product,'Product Deleted Successfully From Our System');
