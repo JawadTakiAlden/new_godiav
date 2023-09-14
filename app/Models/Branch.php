@@ -19,7 +19,7 @@ class Branch extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function supplier(){
-        return $this->belongsTo(Supplier::class);
+    public function suppliers(){
+        return $this->belongsToMany(Supplier::class);
     }
 }
