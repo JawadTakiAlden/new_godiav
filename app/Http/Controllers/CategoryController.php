@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
         $category = Category::create($request->all());
 
-        return $this->customResponse($category , 'One Category Created Successfully');
+        return CategoryResource::make($category)
     }
 
     /**
@@ -50,7 +50,7 @@ class CategoryController extends Controller
         // if (Checker::isParamsFoundInRequest()){
         //     return Checker::CheckerResponse();
         // }
-        return CategoryResource::collection([$category]);
+        return CategoryResource::make($category);
     }
 
     /**
@@ -65,7 +65,7 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        return $this->customResponse($category , 'One Category Updated Successfully');
+        return CategoryResource::make($category)
     }
 
     /**
@@ -88,5 +88,7 @@ class CategoryController extends Controller
         $category->update([
             'visibility' => ! boolval($category->visibility),
         ]);
+
+        return CategoryResource::make($category)
     }
 }
