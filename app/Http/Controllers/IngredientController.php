@@ -1,66 +1,35 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\StoreIngredientsRequst;
+use App\Http\Requests\UpdateingredientsRequest;
+use App\Http\Resources\IngredientResource;
+use App\CustomResponse\ApiResponse;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $users = Ingredient::all();
-        return IngredientResource::collection($users);
+    use ApiResponse;
+    public function index() {
+        $ingredient = Ingredient::all();
+        return $ingredient;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function store(StoreIngredientsRequst $requst) {
+        $requst->validated($requst->all());
+        $ingredient = Ingredient::create($requst->all());
+        return IngredientResource::make($ingredient);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function update(UpdateingredientsRequest $requst, Ingredient $ingredient) {
+        $requst->validated($requst->all());
+        $ingredient->update($requst->all());
+        return IngredientResource::make($ingredient);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ingredient $ingredient)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ingredient $ingredient)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Ingredient $ingredient)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ingredient $ingredient)
-    {
-        //
+    public function delete(Ingredient $ingredient){
+        $ingredient->delete();
+        return $this->success($ingredient,'ingredient Deleted Successfully From Our System');
     }
 }
