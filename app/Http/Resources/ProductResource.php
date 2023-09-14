@@ -5,9 +5,13 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductController extends JsonResource
+class ProductResource extends JsonResource
 {
-
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(Request $request): array
     {
         return [
@@ -16,14 +20,8 @@ class ProductController extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'category_id' => $this->category_id,
-            'price' => $this->price,
-            'visibility' => $this->visibility,
             'calories' => $this->calories,
-            'estimated_time' => $this->estimated_time,
-            'craeted_at' => $this->craeted_at,
-            'updated_at' => $this->updated_at,
+            'price' => $this->price,
         ];
     }
-
-    
 }
