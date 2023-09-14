@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class BranchSupplier extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
+
+    public function branch(){
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function supplier(){
+        return $this->belongsTo(Supplier::class);
+    }
 }

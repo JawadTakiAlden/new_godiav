@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('branch_suppliers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->foreignId('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->timestamps();
         });
     }
