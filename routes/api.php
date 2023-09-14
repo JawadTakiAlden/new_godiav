@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/login' , [AuthenticationController::class , 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/users' , [UserController::class , 'index']);
@@ -34,7 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/products' , [ProductController::class , 'index']);
     Route::post('/products' , [ProductController::class , 'store']);
     Route::get('/products/{product}' , [ProductController::class , 'show']);
-    Route::patch('/products/{product}' , [ProductController::class  , 'update']);
+    Route::post('/products/{product}' , [ProductController::class  , 'update']);
     Route::delete('/products/{product}' , [ProductController::class  , 'destroy']);
 });
 
