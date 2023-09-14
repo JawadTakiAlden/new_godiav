@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('supplier_id')->references('id')->on('id')->onDelete('cascade');
             $table->timestamps();
         });
     }
