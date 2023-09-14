@@ -12,7 +12,8 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        //
+        $users = Ingredient::all();
+        return IngredientResource::collection($users);
     }
 
     /**
