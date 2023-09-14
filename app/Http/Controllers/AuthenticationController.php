@@ -6,8 +6,6 @@ use App\CustomResponse\ApiResponse;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\SecurityChecker\Checker;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
@@ -22,10 +20,7 @@ class AuthenticationController extends Controller
             $request->validated($request->all());
 
             if (!Auth::attempt($request->only(['email', 'password']))) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 422);
+                return $this->error('Your Make A Mistake With your Password' , 401);
             }
 
             $user = User::where('email', $request->email)->first();
