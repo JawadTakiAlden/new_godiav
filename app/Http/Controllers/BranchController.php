@@ -8,6 +8,7 @@ use App\Http\Requests\StoreProudectRequest;
 use App\Http\Requests\UpdateBranchRequest;
 use App\Http\Resources\BranchResource;
 use App\Models\Branch;
+use App\Models\BranchSupplier;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
@@ -20,11 +21,19 @@ class BranchController extends Controller
     }
 
 
-    public function store(Request $request, Branch $branch)
+    public function store(StoreBranchRequest $request)
     {
         $request->validated($request->all());
-        $branch->update($request->all());
-        return BranchResource::make($branch);
+
+        $branch = Branch::create($request->all());
+
+        foreach (json_decode($request->supplier_ids) as $supplier_id){
+            BranchSupplier::create([
+                'branch_id' =>  $branch->id,
+                'supplier_id' => $supplier_id
+            ]);
+        }
+
     }
 
     /**

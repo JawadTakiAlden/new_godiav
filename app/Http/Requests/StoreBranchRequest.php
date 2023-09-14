@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreBranchRequest extends FormRequest
 {
@@ -22,7 +23,9 @@ class StoreBranchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'supplier_ids' => ['required' , 'array'],
+            'supplier_ids.*' => [Rule::exists('suppliers' , 'id')]
         ];
     }
 }
