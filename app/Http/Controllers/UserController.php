@@ -29,7 +29,7 @@ class UserController extends Controller
         return UserResource::make($user);
     }
 
-    public function delete(User $user){
+    public function destroy(User $user){
         $user->delete();
         return $this->success($user , 'User Deleted Successfully From Our System');
     }
