@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -51,7 +52,13 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/branches' , [BranchController::class , 'index']);
     Route::post('/branches' , [BranchController::class , 'store']);
     Route::get('/branches/{branch}' , [BranchController::class , 'show']);
-    Route::post('/branches/{branch}' , [BranchController::class  , 'update']);
+    Route::patch('/branches/{branch}' , [BranchController::class  , 'update']);
     Route::delete('/branches/{branch}' , [BranchController::class  , 'destroy']);
+
+    Route::get('/employees' , [EmployeeController::class , 'index']);
+    Route::post('/employees' , [EmployeeController::class , 'store']);
+    Route::get('/employees/{employee}' , [EmployeeController::class , 'show']);
+    Route::post('/employees/{employee}' , [EmployeeController::class  , 'update']);
+    Route::delete('/employees/{employee}' , [EmployeeController::class  , 'destroy']);
 });
 

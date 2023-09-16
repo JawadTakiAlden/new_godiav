@@ -1,5 +1,6 @@
 <?php
 
+use App\Types\UserTypes;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,17 +12,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
-            $table->string('name');
-            $table->string('description');
-            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->double('price');
-            $table->boolean('visibility')->default(true);
-            $table->double('calories');
-            $table->time('estimated_time')->default('00:05:00');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('phone');
+            $table->string('serial_number')->unique();
+            $table->string('password');
+            $table->string('image')->nullable();
             $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->string('type')->default(UserTypes::WAITER);
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('meals');
+        Schema::dropIfExists('employees');
     }
 };

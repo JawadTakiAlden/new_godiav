@@ -13,8 +13,8 @@ class ProductController extends Controller
 {
     use ApiResponse;
     public function index() {
-        $product = Product::all();
-        return $product;
+        $products = Product::all();
+        return ProductResource::collection($products);
     }
 
     public function store(StoreProudectRequest $requst) {
