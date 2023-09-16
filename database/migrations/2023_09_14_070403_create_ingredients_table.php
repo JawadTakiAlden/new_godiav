@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->double('quantity')->default(0);
             $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
-            $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->timestamps();
         });
     }
