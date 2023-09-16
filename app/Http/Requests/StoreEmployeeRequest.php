@@ -26,7 +26,7 @@ class StoreEmployeeRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'phone' => 'required',
-            'serial_number' => 'required',
+            'serial_number' => 'required|unique:employees,serial_number',
             'password' => 'required|min:7|max:28',
             'image' => 'image|mimes:jpg,png,jpeg|max:2048',
             'branch_id' => ['required' , Rule::exists('branches' , 'id')],

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone');
-            $table->string('serial_number');
+            $table->string('serial_number')->unique();
             $table->string('password');
             $table->string('image')->nullable();
             $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
