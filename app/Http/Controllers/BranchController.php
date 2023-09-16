@@ -36,9 +36,7 @@ class BranchController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Branch $branch) {
         // if (Checker::isParamsFoundInRequest()){
         //     return Checker::CheckerResponse();
