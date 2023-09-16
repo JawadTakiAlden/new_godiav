@@ -17,7 +17,12 @@ class IngredientResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'quantity' => $this->quantity
+            'quantity' => $this->quantity,
+            'relationship' => [
+            'suppliers' => $this->suppliers,
+            'products' => $this->products,
+            'branch' => $this->branch
+            ]
         ];
     }
 }

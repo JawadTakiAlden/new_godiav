@@ -22,7 +22,10 @@ class EmployeeResource extends JsonResource
             'image' => $this->image,
             'serial_number' => $this->serial_number,
             'branch_id' => $this->branch_id,
-            'type' => $this->type
+            'type' => $this->type,
+            'relationship' => [
+                'branch' => $this->branch,
+            ]
         ];
     }
 }
