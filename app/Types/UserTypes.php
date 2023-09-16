@@ -9,4 +9,5 @@ class UserTypes
     const ACCOUNTANT = 'accountant';
     const ADMIN = 'admin';
     const SUPPLIER = 'supplier';
+    const SUPER_ADMIN = 'superAdmin';
 }

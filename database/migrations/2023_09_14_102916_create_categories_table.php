@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
+            $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->boolean('visibility')->default(true);
             $table->timestamps();
         });

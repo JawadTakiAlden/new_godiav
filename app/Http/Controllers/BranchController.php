@@ -16,8 +16,8 @@ class BranchController extends Controller
     use ApiResponse;
     public function index()
     {
-        $branch = Branch::all();
-        return $branch;
+        $branches = Branch::all();
+        return BranchResource::collection($branches);
     }
 
 
@@ -27,13 +27,13 @@ class BranchController extends Controller
 
         $branch = Branch::create($request->all());
 
-        foreach (json_decode($request->supplier_ids) as $supplier_id){
+        foreach ($request->supplier_ids as $supplier_id){
             BranchSupplier::create([
                 'branch_id' =>  $branch->id,
                 'supplier_id' => $supplier_id
             ]);
         }
-
+        return BranchResource::make($branch);
     }
 
     /**
