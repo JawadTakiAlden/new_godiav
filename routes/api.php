@@ -92,5 +92,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/make_order_ready/{subOrder}' , [OrderController::class , 'toReady']);
     Route::patch('/close-table/{table}' , [TableController::class , 'closeTable']);
     Route::patch('/order_review/{order}' , [OrderController::class , 'order_review']);
+    Route::get('/ordersRate' , [OrderController::class , 'calculateAverages']);
+    Route::get('/ordersDelay' , [OrderController::class , 'calculateDelays']);
 });
 
