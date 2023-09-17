@@ -21,7 +21,7 @@ class Supplier extends Model
         return $this->attributes['image'] =  '/'.'supplier_images'.'/' . $newImageName;
     }
 
-    public function branches(){
-        return $this->hasMany(Branch::class);
+    public function brancheSupplier(){
+        return $this->hasMany(BranchSupplier::class);
     }
 }

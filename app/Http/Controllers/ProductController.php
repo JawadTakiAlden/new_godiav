@@ -6,14 +6,19 @@ use App\CustomResponse\ApiResponse;
 use App\Http\Requests\StoreProudectRequest;
 use App\Http\Requests\UpdateProductRequst;
 use App\Http\Resources\ProductResource;
+use App\Models\Branch;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     use ApiResponse;
-    public function index() {
-        $products = Product::all();
+    public function index($branchID) {
+        $branch = Branch::where('id' , $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        $products = Product::where('branch_id', $branchID)->get();
         return ProductResource::collection($products);
     }
 
@@ -29,7 +34,12 @@ class ProductController extends Controller
         return ProductResource::make($product);
     }
 
-    public function show(Product $product) {
+    public function show($branchID , Product $product) {
+        $branch = Branch::where('id' , $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        $products = Product::where('branch_id', $branchID)->get();
         // if (Checker::isParamsFoundInRequest()){
         //     return Checker::CheckerResponse();
         // }

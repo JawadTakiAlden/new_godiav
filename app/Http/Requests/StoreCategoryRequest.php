@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -23,7 +24,8 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+            'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+            'branch_id' =>  ['required' , Rule::exists('branches' , 'id')]
         ];
     }
 }

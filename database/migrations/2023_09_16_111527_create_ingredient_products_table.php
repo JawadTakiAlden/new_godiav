@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ingredient_suppliers', function (Blueprint $table) {
+        Schema::create('ingredient_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
-            $table->double('come_in_quantity');
-            $table->double('unit_price');
-            $table->string('weight_unit');
-            $table->double('total_price');
+            $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ingredient_suppliers');
+        Schema::dropIfExists('ingredient_products');
     }
 };

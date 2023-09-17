@@ -6,15 +6,27 @@ use App\CustomResponse\ApiResponse;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use App\Http\Resources\SupplierResource;
+use App\Models\Branch;
+use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\BranchSupplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
     use ApiResponse;
-    public function index(){
+    public function indexall(){
         $suppliers = Supplier::all();
         return SupplierResource::collection($suppliers);
+    }
+
+    public function index($branchID){
+        $branch = Branch::where('id' , $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        $suppliers = BranchSupplier::where('branch_id', $branchID)->get();
+        return $suppliers;
     }
 
     public function store(StoreSupplierRequest $request){
