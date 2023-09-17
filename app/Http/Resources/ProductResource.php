@@ -24,7 +24,7 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'relationships' => [
                 'category' => $this->category,
-                'ingredients' => $this->ingredients,
+                'ingredients' => $this->ingredientProduct,
                 'branch' => $this->branch
             ]
         ];

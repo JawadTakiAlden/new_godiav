@@ -16,7 +16,7 @@ class Product extends Model
         return $this->attributes['image'] =  '/'.'product_images'.'/' . $newImageName;
     }
 
-    public function ingredients() {
+    public function ingredientProduct() {
         return $this->hasMany(IngredientProduct::class);
     }
 
