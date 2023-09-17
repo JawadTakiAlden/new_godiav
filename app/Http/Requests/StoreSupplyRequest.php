@@ -24,11 +24,11 @@ class StoreSupplyRequest extends FormRequest
     {
         return [
             'supplier_id' => [Rule::exists('suppliers' , 'id')],
-            'ingredient_ids' => 'array',
-            'ingredient_ids.*.ingredient_id' => [Rule::exists('ingredients' , 'id')],
-            'ingredient_ids.*.come_in_quantity' => 'required|numeric',
-            'ingredient_ids.*.unit_price' => 'required|numeric',
-            'ingredient_ids.*.unit' => 'required|numeric',
+            'ingredients' => 'array',
+            'ingredients.*.ingredient_id' => [Rule::exists('ingredients' , 'id')],
+            'ingredients.*.come_in_quantity' => 'required|numeric',
+            'ingredients.*.unit_price' => 'required|numeric',
+            'ingredients.*.unit' => 'required|numeric',
 
         ];
     }

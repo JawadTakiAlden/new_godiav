@@ -8,6 +8,7 @@ use App\Http\Requests\StoreSupplyRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use App\Http\Resources\SupplierResource;
 use App\Models\Branch;
+use App\Models\Ingredient;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\BranchSupplier;
@@ -43,18 +44,22 @@ class SupplierController extends Controller
     {
         $request->validated($request->all());
 
-        foreach ($request->ingredient_ids as $ingredient_id){
-            $total_price = $ingredient_id->unit_price * $ingredient_id->come_in_quantity;
+        foreach ($request->ingredients as $ingredient){
+            $total_price = $ingredient->unit_price * $ingredient->come_in_quantity;
             IngredientSupplier::create([
                'supplier_id' =>  $request->supplier_id ,
-                'ingredient_id' => $ingredient_id,
-                'come_in_quantity' => $ingredient_id->come_in_quantity,
-                'unit_price' => $ingredient_id->unit_price,
-                'unit' => $ingredient_id->unit,
+                'ingredient_id' => $ingredient->ingredient_id,
+                'come_in_quantity' => $ingredient->come_in_quantity,
+                'unit_price' => $ingredient->unit_price,
+                'unit' => $ingredient->unit,
                 'total' => $total_price
             ]);
+            $currentIngredient = Ingredient::where('id' , $ingredient->ingredient_id)->first();
+            $currentIngredient->update([
+                'quantity' => $currentIngredient->quantity + $ingredient->come_in_quantity
+            ]);
         }
-        return $this->success($total_price , 'SUCESSFULLY');
+        return $this->success(null , 'successfully');
     }
 
     public function update(UpdateSupplierRequest $request , Supplier $supplier){
