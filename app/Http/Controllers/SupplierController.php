@@ -11,6 +11,7 @@ use App\Models\Branch;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\BranchSupplier;
+use App\Models\IngredientSupplier;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -41,6 +42,19 @@ class SupplierController extends Controller
     public function supply(StoreSupplyRequest $request)
     {
         $request->validated($request->all());
+
+        foreach ($request->ingredient_ids as $ingredient_id){
+            $total_price = $ingredient_id->unit_price * $ingredient_id->come_in_quantity;
+            IngredientSupplier::create([
+               'supplier_id' =>  $request->supplier_id ,
+                'ingredient_id' => $ingredient_id,
+                'come_in_quantity' => $ingredient_id->come_in_quantity,
+                'unit_price' => $ingredient_id->unit_price,
+                'unit' => $ingredient_id->unit,
+                'total' => $total_price
+            ]);
+        }
+        return $this->success($total_price , 'SUCESSFULLY');
     }
 
     public function update(UpdateSupplierRequest $request , Supplier $supplier){
