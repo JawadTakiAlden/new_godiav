@@ -33,13 +33,13 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/suppliers' , [SupplierController::class , 'indexall']);
     Route::get('/{branchID}/suppliers' , [SupplierController::class , 'index'])->whereNumber('branchID');
     Route::post('/suppliers' , [SupplierController::class , 'store']);
-    Route::get('/{branchID}/suppliers/{supplier}' , [SupplierController::class , 'show'])->whereNumber('branchID');
+    Route::get('/suppliers/{supplier}' , [SupplierController::class , 'show'])->whereNumber('branchID');
     Route::patch('/suppliers/{supplier}' , [SupplierController::class  , 'update']);
     Route::delete('/suppliers/{supplier}' , [SupplierController::class  , 'destroy']);
 
     Route::get('/{branchID}/products' , [ProductController::class , 'index'])->whereNumber('branchID');
     Route::post('/products' , [ProductController::class , 'store']);
-    Route::get('/{branchID}/products/{product}' , [ProductController::class , 'show'])->whereNumber('branchID');
+    Route::get('/products/{product}' , [ProductController::class , 'show'])->whereNumber('branchID');
     Route::post('/products/{product}' , [ProductController::class  , 'update']);
     Route::delete('/products/{product}' , [ProductController::class  , 'destroy']);
 
@@ -57,6 +57,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::delete('/branches/{branch}' , [BranchController::class  , 'destroy']);
 
     Route::get('/employees' , [EmployeeController::class , 'index']);
+    Route::get('/{branchID}/employees' , [EmployeeController::class , 'indexByBranch']);
     Route::post('/employees' , [EmployeeController::class , 'store']);
     Route::get('/employees/{employee}' , [EmployeeController::class , 'show']);
     Route::post('/employees/{employee}' , [EmployeeController::class  , 'update']);

@@ -20,6 +20,18 @@ class EmployeeController extends Controller
         return EmployeeResource::collection($employees);
     }
 
+    public function indexByBranch($branchID)
+    {
+        $employees = Employee::where('branch_id' , $branchID)->get();
+
+
+//        $employees = Employee::whereHas('branch' , fn($query) =>
+//            $query->where('id' , $branchID)
+//        );
+
+        return EmployeeResource::collection($employees);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
