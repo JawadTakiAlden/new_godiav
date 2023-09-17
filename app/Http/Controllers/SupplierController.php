@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CustomResponse\ApiResponse;
 use App\Http\Requests\StoreSupplierRequest;
+use App\Http\Requests\StoreSupplyRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use App\Http\Resources\SupplierResource;
 use App\Models\Branch;
@@ -35,6 +36,11 @@ class SupplierController extends Controller
         $request->validated($request->all());
         $supplier = Supplier::create($request->all());
         return SupplierResource::make($supplier);
+    }
+
+    public function supply(StoreSupplyRequest $request)
+    {
+        $request->validated($request->all());
     }
 
     public function update(UpdateSupplierRequest $request , Supplier $supplier){
