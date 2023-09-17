@@ -75,6 +75,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/employees/{employee}' , [EmployeeController::class  , 'update']);
     Route::delete('/employees/{employee}' , [EmployeeController::class  , 'destroy']);
 
+    Route::get('/{branchID}/tables' , [TableController::class , 'indexByBranch'])->whereNumber('branchID');
     Route::get('/tables' , [TableController::class , 'index']);
     Route::post('/tables' , [TableController::class , 'store']);
     Route::get('/tables/{table}' , [TableController::class , 'show']);

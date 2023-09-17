@@ -2,36 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomResponse\ApiResponse;
 use App\Http\Requests\StoreTableRequest;
 use App\Http\Resources\TableResource;
+use App\Models\Branch;
 use App\Models\Table;
 use App\Models\User;
-use App\Models\Order;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
 {
+    use ApiResponse;
     public function index() {
-        // if (Checker::isParamsFoundInRequest()){
-        //     return Checker::CheckerResponse();
-        // }
         $tables = Table::all();
+        return TableResource::collection($tables);
+    }
+
+
+    public function indexByBranch($branchID)
+    {
+        $branch = Branch::where('id' , $branchID)->first();
+
+        if(!$branch){
+            return $this->error('Requested Branch Not Found' , 404);
+        }
+
+        $tables = Table::where('branch_id' , $branchID)->get();
 
         return TableResource::collection($tables);
     }
 
-    public function store(StoreTableRequest $request) {
-        
-        // if (Checker::isParamsFoundInRequest()){
-        //     return Checker::CheckerResponse();
-        // }
+    public function store(StoreTableRequest $request)
+    {
         $request->validated($request->all());
 
         $table = Table::create($request->all());
 
-        return TableResource::collection([$table]);
+        return TableResource::make($table);
     }
 
     public function show(Table $table) {
@@ -39,15 +48,15 @@ class TableController extends Controller
         // if (Checker::isParamsFoundInRequest()){
         //     return Checker::CheckerResponse();
         // }
-        return TableResource::collection([$table]);
+        return TableResource::make($table);
     }
 
-    public function delete(User $user) {
-        $user->delete();
-        return $this->success($user , 'User Deleted Successfully From Our System');
+    public function delete(Table $table) {
+        $table->delete();
+        return $this->success($table , 'Table Deleted Successfully From Our System');
     }
 
-    
+
     // public function closeTable(Table $table){
     //     if (Checker::isParamsFoundInRequest()){
     //         return Checker::CheckerResponse();

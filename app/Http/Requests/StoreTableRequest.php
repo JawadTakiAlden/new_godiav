@@ -24,7 +24,8 @@ class StoreTableRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'table_number' => 'required|unique:tables,table_number'
+            'table_number' => 'required|unique:tables,table_number',
+            'branch_id' => ['required' , Rule::exists('branches' , 'id')]
         ];
     }
 }

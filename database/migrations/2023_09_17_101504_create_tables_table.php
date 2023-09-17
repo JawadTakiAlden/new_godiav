@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('table_number')->unique();
             $table->boolean('in_progress')->default(false);
+            $table->foreignId('branch_id');
             $table->timestamps();
         });
     }
