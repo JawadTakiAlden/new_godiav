@@ -28,7 +28,7 @@ class SupplierController extends Controller
         $suppliers = Supplier::whereHas('brancheSupplier', fn($query) =>
             $query->where('branch_id' , $branchID)
         )->get();
-        return $suppliers;
+        return SupplierResource::collection($suppliers);
     }
 
     public function store(StoreSupplierRequest $request){
