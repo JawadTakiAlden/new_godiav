@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ingredients', function (Blueprint $table) {
+        Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->double('quantity')->default(0);
-            $table->string('base_unit')->default('kg');
-            $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->string('table_number')->unique();
+            $table->boolean('in_progress')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ingredients');
+        Schema::dropIfExists('tables');
     }
 };

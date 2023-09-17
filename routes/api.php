@@ -36,6 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/suppliers/{supplier}' , [SupplierController::class , 'show']);
     Route::patch('/suppliers/{supplier}' , [SupplierController::class  , 'update']);
     Route::delete('/suppliers/{supplier}' , [SupplierController::class  , 'destroy']);
+    Route::post('/supply' , [SupplierController::class  , 'supply']);
 
     Route::get('/{branchID}/products' , [ProductController::class , 'index'])->whereNumber('branchID');
     Route::post('/products' , [ProductController::class , 'store']);
