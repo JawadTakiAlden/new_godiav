@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CustomResponse\ApiResponse;
 use App\Http\Resources\EmployeeResource;
+use App\Models\Branch;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
@@ -17,6 +18,24 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::all();
+        return EmployeeResource::collection($employees);
+    }
+
+    public function indexByBranch($branchID)
+    {
+        $branch = Branch::where('id' , $branchID)->first();
+
+        if(!$branch){
+            return $this->error('Requested Branch Not Found' , 404);
+        }
+
+        $employees = Employee::where('branch_id' , $branchID)->get();
+
+
+//        $employees = Employee::whereHas('branch' , fn($query) =>
+//            $query->where('id' , $branchID)
+//        );
+
         return EmployeeResource::collection($employees);
     }
 
