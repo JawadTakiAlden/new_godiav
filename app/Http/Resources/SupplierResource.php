@@ -23,7 +23,7 @@ class SupplierResource extends JsonResource
             'phone' => $this->phone,
             'image' => $this->image,
             'relationship' => [
-                'branches' =>$this->branches
+
             ]
 
         ];
