@@ -7,6 +7,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TableController;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -66,5 +67,11 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/employees/{employee}' , [EmployeeController::class , 'show']);
     Route::post('/employees/{employee}' , [EmployeeController::class  , 'update']);
     Route::delete('/employees/{employee}' , [EmployeeController::class  , 'destroy']);
+
+    Route::get('/tables' , [TableController::class , 'index']);
+    Route::post('/tables' , [TableController::class , 'store']);
+    Route::get('/tables/{table}' , [TableController::class , 'show']);
+    Route::delete('/tables/{table}' , [TableController::class , 'delete']);
+
 });
 
