@@ -51,12 +51,12 @@ class AuthenticationController extends Controller
         try {
             $request->validated($request->all());
 
-            if (!Auth::guard('employees')->attempt($request->only(['serial_number', 'password']))) {
+            if (!Auth::guard('employee')->attempt($request->only(['serial_number', 'password']))) {
                 return $this->error('Your Make A Mistake With your Password' , 401);
             }
 
             $employee = Employee::where('serial_number', $request->serial_number)->first();
-            $employeeAuth = Auth::guard('employees')->user();
+            $employeeAuth = Auth::guard('employee')->user();
 
 
             return $this->success([
@@ -77,12 +77,12 @@ class AuthenticationController extends Controller
         try {
             $request->validated($request->all());
 
-            if (!Auth::guard('suppliers')->attempt($request->only(['email', 'password']))) {
+            if (!Auth::guard('supplier')->attempt($request->only(['email', 'password']))) {
                 return $this->error('Your Make A Mistake With your Password' , 401);
             }
 
             $supplier = Supplier::where('email', $request->email)->first();
-            $supplierAuth = Auth::guard('suppliers')->user();
+            $supplierAuth = Auth::guard('supplier')->user();
 
 
             return $this->success([
