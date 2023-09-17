@@ -30,20 +30,20 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/users/{user}' , [UserController::class  , 'update']);
     Route::delete('/users/{user}' , [UserController::class  , 'destroy']);
 
-    Route::get('/suppliers' , [SupplierController::class , 'indexall']);
+    Route::get('/suppliers' , [SupplierController::class , 'indexAll']);
     Route::get('/{branchID}/suppliers' , [SupplierController::class , 'index'])->whereNumber('branchID');
     Route::post('/suppliers' , [SupplierController::class , 'store']);
-    Route::get('/suppliers/{supplier}' , [SupplierController::class , 'show'])->whereNumber('branchID');
+    Route::get('/suppliers/{supplier}' , [SupplierController::class , 'show']);
     Route::patch('/suppliers/{supplier}' , [SupplierController::class  , 'update']);
     Route::delete('/suppliers/{supplier}' , [SupplierController::class  , 'destroy']);
 
     Route::get('/{branchID}/products' , [ProductController::class , 'index'])->whereNumber('branchID');
     Route::post('/products' , [ProductController::class , 'store']);
-    Route::get('/products/{product}' , [ProductController::class , 'show'])->whereNumber('branchID');
+    Route::get('/products/{product}' , [ProductController::class , 'show']);
     Route::post('/products/{product}' , [ProductController::class  , 'update']);
     Route::delete('/products/{product}' , [ProductController::class  , 'destroy']);
 
-    Route::get('categories' , [CategoryController::class , 'indexall']);
+    Route::get('categories' , [CategoryController::class , 'indexAll']);
     Route::get('/{branchID}/categories' , [CategoryController::class , 'index'])->whereNumber('branchID');
     Route::post('/categories' , [CategoryController::class , 'store']);
     Route::get('/categories/{category}' , [CategoryController::class , 'show']);

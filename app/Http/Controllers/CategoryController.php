@@ -17,7 +17,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function indexall()
+    public function indexAll()
     {
         // if (Checker::isParamsFoundInRequest()){
         //     return Checker::CheckerResponse();

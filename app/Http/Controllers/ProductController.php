@@ -22,27 +22,20 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
-    public function store(StoreProudectRequest $requst) {
-        $requst->validated($requst->all());
-        $product = Product::create($requst->all());
+    public function store(StoreProudectRequest $request) {
+        return $request;
+            $request->validated($request->all());
+        $product = Product::create($request->all());
         return ProductResource::make($product);
     }
 
-    public function update(UpdateProductRequst $requst, Product $product) {
-        $requst->validated($requst->all());
-        $product->update($requst->all());
+    public function update(UpdateProductRequst $request, Product $product) {
+        $request->validated($request->all());
+        $product->update($request->all());
         return ProductResource::make($product);
     }
 
-    public function show($branchID , Product $product) {
-        $branch = Branch::where('id' , $branchID)->first();
-        if(!$branch){
-            return $this->error('This Branch Not Found In Our System' , 404);
-        }
-        $products = Product::where('branch_id', $branchID)->get();
-        // if (Checker::isParamsFoundInRequest()){
-        //     return Checker::CheckerResponse();
-        // }
+    public function show(Product $product) {
         return ProductResource::make($product);
 }
 

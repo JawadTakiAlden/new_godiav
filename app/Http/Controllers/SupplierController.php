@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class SupplierController extends Controller
 {
     use ApiResponse;
-    public function indexall(){
+    public function indexAll(){
         $suppliers = Supplier::all();
         return SupplierResource::collection($suppliers);
     }
