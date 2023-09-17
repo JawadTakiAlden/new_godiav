@@ -28,7 +28,7 @@ class StoreSupplyRequest extends FormRequest
             'ingredients.*.ingredient_id' => [Rule::exists('ingredients' , 'id')],
             'ingredients.*.come_in_quantity' => 'required|numeric',
             'ingredients.*.unit_price' => 'required|numeric',
-            'ingredients.*.unit' => 'required|numeric',
+            'ingredients.*.unit' => 'in:g,kg',
 
         ];
     }

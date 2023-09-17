@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->double('quantity')->default(0);
+            $table->double('base_unit')->default('kg');
             $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->timestamps();
         });

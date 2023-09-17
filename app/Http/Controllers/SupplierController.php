@@ -55,8 +55,18 @@ class SupplierController extends Controller
                 'total' => $total_price
             ]);
             $currentIngredient = Ingredient::where('id' , $ingredient->ingredient_id)->first();
+            $updatedQuantity = $ingredient->come_in_quantity;
+
+            if ($ingredient->unit !== $currentIngredient->base_unit){
+                $baseUnit = $currentIngredient->base_unit;
+                if($baseUnit === 'kg'){
+                    $updatedQuantity = $updatedQuantity / 1000 ;
+                }else {
+                    $updatedQuantity = $updatedQuantity * 1000 ;
+                }
+            }
             $currentIngredient->update([
-                'quantity' => $currentIngredient->quantity + $ingredient->come_in_quantity
+                'quantity' => $currentIngredient->quantity + $updatedQuantity
             ]);
         }
         return $this->success(null , 'successfully');
