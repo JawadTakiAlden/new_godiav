@@ -43,7 +43,8 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/products/{product}' , [ProductController::class  , 'update']);
     Route::delete('/products/{product}' , [ProductController::class  , 'destroy']);
 
-    Route::get('/categories' , [CategoryController::class , 'index']);
+    Route::get('categories' , [CategoryController::class , 'indexall']);
+    Route::get('/{branchID}/categories' , [CategoryController::class , 'index'])->whereNumber('branchID');
     Route::post('/categories' , [CategoryController::class , 'store']);
     Route::get('/categories/{category}' , [CategoryController::class , 'show']);
     Route::post('/categories/{category}' , [CategoryController::class  , 'update']);

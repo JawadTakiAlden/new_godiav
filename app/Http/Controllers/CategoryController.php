@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CustomResponse\ApiResponse;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Models\Branch;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
@@ -16,7 +17,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function indexall()
     {
         // if (Checker::isParamsFoundInRequest()){
         //     return Checker::CheckerResponse();
@@ -24,6 +25,15 @@ class CategoryController extends Controller
         $categories = Category::where('visibility' , true)->get();
 
         return CategoryResource::collection($categories);
+    }
+
+    public function index($branchID){
+        $branch = Branch::where('id' , $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        $suppliers = Category::where('branch_id', $branchID)->get();
+        return $suppliers;
     }
 
     /**
