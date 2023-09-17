@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProudectRequest;
 use App\Http\Requests\UpdateProductRequst;
 use App\Http\Resources\ProductResource;
 use App\Models\Branch;
+use App\Models\IngredientProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -23,9 +24,15 @@ class ProductController extends Controller
     }
 
     public function store(StoreProudectRequest $request) {
-        return $request;
-            $request->validated($request->all());
+        $request->validated($request->all());
         $product = Product::create($request->all());
+
+        foreach ($request->ingredient_ids as $ingredient_id){
+            IngredientProduct::create([
+               'ingredient_id' =>  $ingredient_id ,
+                'product_id' => $product->id
+            ]);
+        }
         return ProductResource::make($product);
     }
 
