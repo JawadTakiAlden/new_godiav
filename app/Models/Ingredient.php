@@ -21,4 +21,8 @@ class Ingredient extends Model
     public function branch(){
         return $this->belongsTo(Branch::class);
     }
+
+    public function ingredientProduct() {
+        return $this->hasMany(IngredientProduct::class);
+    }
 }

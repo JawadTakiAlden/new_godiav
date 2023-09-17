@@ -6,6 +6,7 @@ use App\CustomResponse\ApiResponse;
 use App\Http\Requests\StoreTableRequest;
 use App\Http\Resources\TableResource;
 use App\Models\Branch;
+use App\Models\Order;
 use App\Models\Table;
 use App\Models\User;
 use GuzzleHttp\Promise\Create;
@@ -57,21 +58,18 @@ class TableController extends Controller
     }
 
 
-    // public function closeTable(Table $table){
-    //     if (Checker::isParamsFoundInRequest()){
-    //         return Checker::CheckerResponse();
-    //     }
-    //     $table->update([
-    //        'in_progress' => false
-    //     ]);
+     public function closeTable(Table $table){
+         $table->update([
+            'in_progress' => false
+         ]);
 
 
-    //     $order = Order::where('table_id' , $table['id'])->where('in_progress' , true)->first();
+         $order = Order::where('table_id' , $table['id'])->where('in_progress' , true)->first();
 
-    //     $order->update([
-    //         'in_progress' => false
-    //     ]);
+         $order->update([
+             'in_progress' => false
+         ]);
 
-    //     return $this->customResponse($table , 'Your request was successfully and table number' . $table['table_number'] . 'is free now');
-    // }
+         return $this->success($table , 'Your request was successfully and table number' . $table['table_number'] . 'is free now');
+     }
 }
