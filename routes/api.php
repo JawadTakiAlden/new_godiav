@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -27,6 +28,12 @@ Route::post('/employeeLogin' , [AuthenticationController::class , 'loginEmployee
 Route::post('/supplierLogin' , [AuthenticationController::class , 'loginSupplier']);
 
 Route::middleware(['auth:sanctum'])->group(function (){
+
+    Route::get('/userProfile' , [ProfileController::class , 'userProfile']);
+    Route::get('/employeeProfile' , [ProfileController::class , 'employeeProfile']);
+    Route::get('/supplierProfile' , [ProfileController::class , 'supplierProfile']);
+
+
     Route::get('/users' , [UserController::class , 'index']);
     Route::post('/users' , [UserController::class , 'store']);
     Route::get('/users/{user}' , [UserController::class , 'show']);
