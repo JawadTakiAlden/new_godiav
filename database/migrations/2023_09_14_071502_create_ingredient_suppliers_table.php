@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
             $table->double('come_in_quantity');
             $table->double('unit_price');
-            $table->string('weight_unit');
+            $table->string('unit');
             $table->double('total_price');
             $table->timestamps();
         });
