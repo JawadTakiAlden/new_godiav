@@ -25,7 +25,9 @@ class SupplierController extends Controller
         if(!$branch){
             return $this->error('This Branch Not Found In Our System' , 404);
         }
-        $suppliers = BranchSupplier::where('branch_id', $branchID)->get();
+        $suppliers = Supplier::whereHas('brancheSupplier', fn($query) =>
+            $query->where('branch_id' , $branchID)
+        )->get();
         return $suppliers;
     }
 
