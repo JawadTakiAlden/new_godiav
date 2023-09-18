@@ -90,4 +90,9 @@ class SupplierController extends Controller
         $supplier->delete();
         return $this->success($supplier , 'Supplier Deleted Successfully From Our System');
     }
+
+    public function lastfivesuppliers() {
+        $lastfivesuppliers = Supplier::latest()->take(5)->get();
+        return response()->json($lastfivesuppliers);
+    }
 }

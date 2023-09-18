@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sub_order_id')->references('id')->on('sub_orders');
             $table->integer('quantity');
-            $table->foreignId('product')->constrained('id')->on('products')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('id')->on('products')->onDelete('cascade');
             $table->string('note')->nullable();
             $table->double('total');
             $table->string('added')->nullable();

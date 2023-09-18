@@ -49,7 +49,7 @@ class OrderItemController extends Controller
 
                 $product = Product::where('id' , $order_item['product_id'])->first();
 
-                $productIngredients = IngredientProduct::where('product_id' , );
+                // $productIngredients = IngredientProduct::where('product_id' , );
 
                 // get estimated time for this order_item
                 $timeInTimestamp = new Carbon($product['estimated_time']);

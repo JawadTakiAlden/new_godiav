@@ -25,7 +25,9 @@ class StoreOrderRequest extends FormRequest
         return [
             'table_id' => ['required' , Rule::exists('tables' , 'id')],
             'order_items' => 'required|array',
-            'order_items.*.product_id' => ['required' , Rule::exists('products' , 'id')]
+            'order_items.*.product_id' => ['required' , Rule::exists('products' , 'id')],
+           // 'order_items.*.quantity_id' => ['required' , Rule::exists('products' , 'id')],
+
         ];
     }
 }

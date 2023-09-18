@@ -62,14 +62,20 @@ class TableController extends Controller
          $table->update([
             'in_progress' => false
          ]);
-
-
          $order = Order::where('table_id' , $table['id'])->where('in_progress' , true)->first();
-
          $order->update([
              'in_progress' => false
          ]);
-
          return $this->success($table , 'Your request was successfully and table number' . $table['table_number'] . 'is free now');
+     }
+
+     public function available_table(){
+        $table = Table::where('in_progress', false)->get();
+        return response()->json($table);
+     }
+
+     public function not_available(){
+        $table = Table::where('in_progress', true)->get();
+        return response()->json($table);
      }
 }

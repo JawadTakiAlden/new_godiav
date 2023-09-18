@@ -10,7 +10,9 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\TableController;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -31,14 +33,19 @@ Route::post('/employeeLogin' , [AuthenticationController::class , 'loginEmployee
 Route::post('/supplierLogin' , [AuthenticationController::class , 'loginSupplier']);
 
 Route::middleware(['auth:sanctum'])->group(function (){
+    ///// Profile
     Route::get('/userProfile' , [ProfileController::class , 'userProfile']);
     Route::get('/employeeProfile' , [ProfileController::class , 'employeeProfile']);
     Route::get('/supplierProfile' , [ProfileController::class , 'supplierProfile']);
+
+    ////// Users
     Route::get('/users' , [UserController::class , 'index']);
     Route::post('/users' , [UserController::class , 'store']);
     Route::get('/users/{user}' , [UserController::class , 'show']);
     Route::patch('/users/{user}' , [UserController::class  , 'update']);
     Route::delete('/users/{user}' , [UserController::class  , 'destroy']);
+
+    /////  Suppliers
     Route::get('/suppliers' , [SupplierController::class , 'indexAll']);
     Route::get('/{branchID}/suppliers' , [SupplierController::class , 'index'])->whereNumber('branchID');
     Route::post('/suppliers' , [SupplierController::class , 'store']);
@@ -46,33 +53,50 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/suppliers/{supplier}' , [SupplierController::class  , 'update']);
     Route::delete('/suppliers/{supplier}' , [SupplierController::class  , 'destroy']);
     Route::post('/supply' , [SupplierController::class  , 'supply']);
+    Route::get('/lastfivesuppliers', [SupplierController::class , 'lastfivesuppliers']);
+
+    ///// Product
     Route::get('/{branchID}/products' , [ProductController::class , 'index'])->whereNumber('branchID');
     Route::post('/products' , [ProductController::class , 'store']);
     Route::get('/products/{product}' , [ProductController::class , 'show']);
     Route::post('/products/{product}' , [ProductController::class  , 'update']);
     Route::delete('/products/{product}' , [ProductController::class  , 'destroy']);
+    Route::get('/lastfiveproduct', [ProductController::class, 'lastfiveproduct']);
+
+    //////  Categories
     Route::get('categories' , [CategoryController::class , 'indexAll']);
     Route::get('/{branchID}/categories' , [CategoryController::class , 'index'])->whereNumber('branchID');
     Route::post('/categories' , [CategoryController::class , 'store']);
     Route::get('/categories/{category}' , [CategoryController::class , 'show']);
     Route::post('/categories/{category}' , [CategoryController::class  , 'update']);
     Route::delete('/categories/{category}' , [CategoryController::class  , 'destroy']);
+    Route::get('/lastfivecategory', [CategoryController::class , 'lastfivecategory']);
+
+    ////// Branch
     Route::get('/branches' , [BranchController::class , 'index']);
     Route::post('/branches' , [BranchController::class , 'store']);
     Route::get('/branches/{branch}' , [BranchController::class , 'show']);
     Route::patch('/branches/{branch}' , [BranchController::class  , 'update']);
     Route::delete('/branches/{branch}' , [BranchController::class  , 'destroy']);
+
+    //////  Employees
     Route::get('/employees' , [EmployeeController::class , 'index']);
     Route::get('/{branchID}/employees' , [EmployeeController::class , 'indexByBranch']);
     Route::post('/employees' , [EmployeeController::class , 'store']);
     Route::get('/employees/{employee}' , [EmployeeController::class , 'show']);
     Route::post('/employees/{employee}' , [EmployeeController::class  , 'update']);
     Route::delete('/employees/{employee}' , [EmployeeController::class  , 'destroy']);
+
+    ///// Table
     Route::get('/{branchID}/tables' , [TableController::class , 'indexByBranch'])->whereNumber('branchID');
     Route::get('/tables' , [TableController::class , 'index']);
     Route::post('/tables' , [TableController::class , 'store']);
     Route::get('/tables/{table}' , [TableController::class , 'show']);
     Route::delete('/tables/{table}' , [TableController::class , 'delete']);
+    Route::get('/available_table' , [TableController::class , 'available_table']);
+    Route::get('/not_available' , [TableController::class , 'not_available']);
+
+    ///// Orders
     Route::get('/orders' , [OrderController::class , 'index']);
     Route::post('/orders' , [OrderItemController::class , 'store']);
     Route::get('/orders/{subOrder}' , [OrderController::class , 'show']);
@@ -94,5 +118,12 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/order_review/{order}' , [OrderController::class , 'order_review']);
     Route::get('/ordersRate' , [OrderController::class , 'calculateAverages']);
     Route::get('/ordersDelay' , [OrderController::class , 'calculateDelays']);
+
+    /// Ingredient
+    Route::get('ingredients',[IngredientController::class, 'index']);
+    Route::post('ingredients',[IngredientController::class, 'store']);
+    Route::patch('ingredients/{ingredient}',[IngredientController::class, 'update']);
+    Route::get('ingredients/{ingredient}',[IngredientController::class, 'show']);
+    Route::delete('ingredients/{ingredient}',[IngredientController::class, 'delete']);
 });
 
