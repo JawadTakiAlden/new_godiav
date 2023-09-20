@@ -51,8 +51,8 @@ class ProductController extends Controller
         return $this->success($product,'Product Deleted Successfully From Our System');
     }
 
-    public function lastfiveproduct() {
+    public static function lastfiveproduct() {
         $products = Product::latest()->take(5)->get();
-        return response()->json($products);
+        return $products;
     }
 }

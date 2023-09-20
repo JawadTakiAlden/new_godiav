@@ -102,8 +102,8 @@ class CategoryController extends Controller
         return CategoryResource::make($category);
     }
 
-    public function lastfivecategory() {
+    public static function lastfivecategory() {
         $category = Category::latest()->take(5)->get();
-        return response()->json($category);
+        return $category;
     }
 }

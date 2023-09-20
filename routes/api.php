@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -125,5 +126,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('ingredients/{ingredient}',[IngredientController::class, 'update']);
     Route::get('ingredients/{ingredient}',[IngredientController::class, 'show']);
     Route::delete('ingredients/{ingredient}',[IngredientController::class, 'delete']);
+
+    Route::get('/getTops' , [StatisticsController::class , 'getTops']);
 });
 

@@ -74,8 +74,8 @@ class TableController extends Controller
         return response()->json($table);
      }
 
-     public function not_available(){
+     public static function not_available(){
         $table = Table::where('in_progress', true)->get();
-        return response()->json($table);
+        return $table;
      }
 }
