@@ -298,4 +298,8 @@ class OrderController extends Controller
         ] , 200);
     }
 
+    public static function lastfiveorder() {
+        $orders = Order::latest()->take(5)->get();
+        return $orders;
+    }
 }
