@@ -119,6 +119,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/order_review/{order}' , [OrderController::class , 'order_review']);
     Route::get('/ordersRate' , [OrderController::class , 'calculateAverages']);
     Route::get('/ordersDelay' , [OrderController::class , 'calculateDelays']);
+    Route::get('/lastfiveorder',[OrderController::class,'lastfiveorder']);
 
     /// Ingredient
     Route::get('ingredients',[IngredientController::class, 'index']);
