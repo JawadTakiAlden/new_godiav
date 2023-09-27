@@ -15,6 +15,7 @@ class TableResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'table_number' => $this-> table_number,
             'in_progress' => $this-> in_progress
         ];

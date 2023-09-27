@@ -29,8 +29,9 @@ class StoreProudectRequest extends FormRequest
             'category_id' => ['required' , Rule::exists('categories','id')],
             'price' => 'required',
             'calories' => 'required',
-            'ingredient_ids' => 'required|array',
-            'ingredient_ids.*' => [Rule::exists('ingredients' , 'id')]
+            'ingredient_ids' => 'array',
+            'ingredient_ids.*.id' => [Rule::exists('ingredients' , 'id')],
+            'ingredient_ids.*.quantity' => ['required' , 'numeric']
         ];
     }
 }

@@ -65,7 +65,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/lastfiveproduct', [ProductController::class, 'lastfiveproduct']);
 
     //////  Categories
-    Route::get('categories' , [CategoryController::class , 'indexAll']);
+    Route::get('/categories' , [CategoryController::class , 'indexAll']);
     Route::get('/{branchID}/categories' , [CategoryController::class , 'index'])->whereNumber('branchID');
     Route::post('/categories' , [CategoryController::class , 'store']);
     Route::get('/categories/{category}' , [CategoryController::class , 'show']);
@@ -122,11 +122,13 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/lastfiveorder',[OrderController::class,'lastfiveorder']);
 
     /// Ingredient
-    Route::get('ingredients',[IngredientController::class, 'index']);
-    Route::post('ingredients',[IngredientController::class, 'store']);
-    Route::patch('ingredients/{ingredient}',[IngredientController::class, 'update']);
-    Route::get('ingredients/{ingredient}',[IngredientController::class, 'show']);
-    Route::delete('ingredients/{ingredient}',[IngredientController::class, 'delete']);
+    Route::get('/ingredients',[IngredientController::class, 'index']);
+    Route::get('/{branchID}/ingredients',[IngredientController::class, 'indexByBranch'])->whereNumber('branchID');
+    Route::post('/ingredients',[IngredientController::class, 'store']);
+    Route::patch('/ingredients/{ingredient}',[IngredientController::class, 'update']);
+    Route::get('/ingredients/{ingredient}',[IngredientController::class, 'show']);
+    Route::get('/last5Ingredients' ,  [IngredientController::class , 'last5']);
+    Route::delete('/ingredients/{ingredient}',[IngredientController::class, 'delete']);
 
     Route::get('/getTops' , [StatisticsController::class , 'getTops']);
 });

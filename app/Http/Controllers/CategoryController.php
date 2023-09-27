@@ -32,8 +32,8 @@ class CategoryController extends Controller
         if(!$branch){
             return $this->error('This Branch Not Found In Our System' , 404);
         }
-        $suppliers = Category::where('branch_id', $branchID)->get();
-        return $suppliers;
+        $categories = Category::where('branch_id', $branchID)->get();
+        return CategoryResource::collection($categories);
     }
 
     /**

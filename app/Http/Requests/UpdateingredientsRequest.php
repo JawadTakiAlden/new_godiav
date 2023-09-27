@@ -21,11 +21,10 @@ class UpdateingredientsRequest extends FormRequest
      */
     public function rules(): array
     {
-       
+
             return [
                 'name' => 'string',
-                'quantity' => 'numeric',            
-            
+                'quantity' => 'numeric',
         ];
     }
 }

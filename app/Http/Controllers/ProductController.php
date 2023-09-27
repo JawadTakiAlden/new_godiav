@@ -26,13 +26,16 @@ class ProductController extends Controller
     public function store(StoreProudectRequest $request) {
         $request->validated($request->all());
         $product = Product::create($request->all());
-
-        foreach ($request->ingredient_ids as $ingredient_id){
-            IngredientProduct::create([
-               'ingredient_id' =>  $ingredient_id ,
-                'product_id' => $product->id
-            ]);
+        if ($request->ingredient_ids) {
+            foreach ($request->ingredient_ids as $ingredient){
+                IngredientProduct::create([
+                    'ingredient_id' =>  $ingredient['id'] ,
+                    'consumed_quantity' => $ingredient['quantity'],
+                    'product_id' => $product->id
+                ]);
+            }
         }
+
         return ProductResource::make($product);
     }
 

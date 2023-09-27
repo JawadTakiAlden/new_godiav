@@ -22,9 +22,10 @@ class ProductResource extends JsonResource
             'category_id' => $this->category_id,
             'calories' => $this->calories,
             'price' => $this->price,
+            'estimated_time' => $this->estimated_time,
             'relationships' => [
                 'category' => $this->category,
-                'ingredients' => $this->ingredientProduct,
+                'ingredients' => IngredientProductResource::collection($this->ingredientProduct),
                 'branch' => $this->branch
             ]
         ];
