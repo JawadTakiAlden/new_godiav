@@ -76,6 +76,6 @@ class TableController extends Controller
 
      public static function not_available(){
         $table = Table::where('in_progress', true)->get();
-        return $table;
+        return TableResource::collection($table);
      }
 }

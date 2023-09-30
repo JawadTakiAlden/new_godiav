@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\IngredientProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProfileController;
@@ -55,6 +56,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::delete('/suppliers/{supplier}' , [SupplierController::class  , 'destroy']);
     Route::post('/supply' , [SupplierController::class  , 'supply']);
     Route::get('/lastfivesuppliers', [SupplierController::class , 'lastfivesuppliers']);
+    Route::get('/{branchID}/ingredients-supplied' , [SupplierController::class , 'ingredientsSupplied'])->whereNumber('branchID');
 
     ///// Product
     Route::get('/{branchID}/products' , [ProductController::class , 'index'])->whereNumber('branchID');
@@ -79,6 +81,8 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/branches/{branch}' , [BranchController::class , 'show']);
     Route::patch('/branches/{branch}' , [BranchController::class  , 'update']);
     Route::delete('/branches/{branch}' , [BranchController::class  , 'destroy']);
+    Route::get('/supplier-branches' , [BranchController::class , 'supplierBranches']);
+    Route::get('/last5SupplierSupply' , [SupplierController::class , 'last5SupplierSupply']);
 
     //////  Employees
     Route::get('/employees' , [EmployeeController::class , 'index']);
@@ -129,6 +133,9 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/ingredients/{ingredient}',[IngredientController::class, 'show']);
     Route::get('/last5Ingredients' ,  [IngredientController::class , 'last5']);
     Route::delete('/ingredients/{ingredient}',[IngredientController::class, 'delete']);
+
+    Route::patch('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'update']);
+    Route::delete('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'destroy']);
 
     Route::get('/getTops' , [StatisticsController::class , 'getTops']);
 });

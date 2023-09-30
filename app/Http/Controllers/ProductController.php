@@ -41,7 +41,16 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequst $request, Product $product) {
         $request->validated($request->all());
-        $product->update($request->all());
+        $product->update($request->except('ingredient_ids'));
+        if ($request->ingredient_ids) {
+            foreach ($request->ingredient_ids as $ingredient){
+                IngredientProduct::create([
+                    'ingredient_id' =>  $ingredient['id'] ,
+                    'consumed_quantity' => $ingredient['quantity'],
+                    'product_id' => $product->id
+                ]);
+            }
+        }
         return ProductResource::make($product);
     }
 
@@ -56,6 +65,6 @@ class ProductController extends Controller
 
     public static function lastfiveproduct() {
         $products = Product::latest()->take(5)->get();
-        return $products;
+        return ProductResource::collection($products);
     }
 }

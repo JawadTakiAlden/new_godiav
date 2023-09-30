@@ -52,10 +52,9 @@ class OrderItemController extends Controller
                 // $productIngredients = IngredientProduct::where('product_id' , );
 
                 // get estimated time for this order_item
-                $timeInTimestamp = new Carbon($product['estimated_time']);
-                $totalTimeStamp = $timeInTimestamp->getTimestamp();
-                if ( $estimatedTime < $totalTimeStamp ){
-                    $estimatedTime = $totalTimeStamp;
+                $curentItemEstimatedTime = $product['estimated_time'];
+                if ( $estimatedTime < $curentItemEstimatedTime ){
+                    $estimatedTime = $curentItemEstimatedTime;
                 }
                 // calc total price of this order ite,
                 $total_price_of_item = $order_item['quantity'] * $product->price;
@@ -67,19 +66,13 @@ class OrderItemController extends Controller
                 $total_price_of_sub_order += $total_price_of_item;
             }
 
-            $estimatedTimeOfThisOrder = Carbon::createFromTimestamp($estimatedTime)->format('H:i:s');
-
 
             $subOrder->update([
                 'total' => $total_price_of_sub_order,
-                'estimated_time' => $estimatedTimeOfThisOrder
+                'estimated_time' => $estimatedTime
             ]);
 
-            $myNewOrder = SubOrder::where('id' , $subOrder['id'])->first();
-
-            $data = OrderResource::collection([$myNewOrder]);
-
-            return $this->success(null , "Your Order Ordered Successfully");
+            return OrderResource::make($subOrder);
         }else {
 
             // if table wasn't in progress and new order on it , then we need to switch it to in progress
@@ -104,9 +97,8 @@ class OrderItemController extends Controller
                 // then get meal that this order item has it
                 $product = Product::where('id' , $order_item['product_id'])->first();
                 // get estimated time for this order_item
-                $timeInTimestamp = Carbon::parse($product['estimated_time']);
-                $totalTimeStamp = $timeInTimestamp->copy()->getTimestamp();
-                $estimatedTime = max($estimatedTime , $totalTimeStamp);
+                $curentItemEstimatedTime = $product['estimated_time'];
+                $estimatedTime = max($estimatedTime , $curentItemEstimatedTime);
                 // calc total price of this order ite,
                 $total_price_of_item = $order_item['quantity'] * $product->price;
                 // initilize array of order item data
@@ -116,19 +108,14 @@ class OrderItemController extends Controller
                 // update total price of sub order
                 $total_price_of_sub_order += $total_price_of_item;
             }
-            $estimatedTimeOfThisOrder = Carbon::createFromTimestamp($estimatedTime)->format('H:i:s');
 
 
             $subOrder->update([
                 'total' => $total_price_of_sub_order,
-                'estimated_time' => $estimatedTimeOfThisOrder
+                'estimated_time' => $estimatedTime
             ]);
 
-            $myNewOrder = SubOrder::where('id' , $subOrder['id'])->first();
-
-            $data = OrderResource::collection([$myNewOrder]);
-
-            return $this->success(null , "Your Order Ordered Successfully");
+            return OrderResource::make($subOrder);
         }
     }
 }

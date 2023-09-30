@@ -300,6 +300,6 @@ class OrderController extends Controller
 
     public static function lastfiveorder() {
         $orders = Order::latest()->take(5)->get();
-        return $orders;
+        return OrderResource::collection($orders);
     }
 }

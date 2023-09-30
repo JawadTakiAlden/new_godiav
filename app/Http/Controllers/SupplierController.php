@@ -6,6 +6,7 @@ use App\CustomResponse\ApiResponse;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\StoreSupplyRequest;
 use App\Http\Requests\UpdateSupplierRequest;
+use App\Http\Resources\IngredientSupplierResource;
 use App\Http\Resources\SupplierResource;
 use App\Models\Branch;
 use App\Models\Ingredient;
@@ -14,6 +15,7 @@ use App\Models\Supplier;
 use App\Models\BranchSupplier;
 use App\Models\IngredientSupplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SupplierController extends Controller
 {
@@ -34,9 +36,25 @@ class SupplierController extends Controller
         return SupplierResource::collection($suppliers);
     }
 
+    public function last5SupplierSupply(){
+        return IngredientSupplierResource::collection(IngredientSupplier::where('supplier_id' , Auth::user()->id)->get());
+    }
+
     public function store(StoreSupplierRequest $request){
         $request->validated($request->all());
+
+
         $supplier = Supplier::create($request->all());
+
+        if($request->branches){
+            foreach ($request->branches as  $branch){
+                BranchSupplier::create([
+                    'supplier_id' => $supplier->id,
+                    'branch_id' => $branch
+                ]);
+            }
+        }
+
         return SupplierResource::make($supplier);
     }
 
@@ -47,10 +65,10 @@ class SupplierController extends Controller
         foreach ($request->ingredients as $ingredient){
             $total_price = $ingredient->unit_price * $ingredient->come_in_quantity;
             IngredientSupplier::create([
-               'supplier_id' =>  $request->supplier_id ,
+               'supplier_id' =>  Auth::user()->id ,
                 'ingredient_id' => $ingredient->ingredient_id,
+                'branch_id' => $request->branch_id,
                 'come_in_quantity' => $ingredient->come_in_quantity,
-                'unit_price' => $ingredient->unit_price,
                 'unit' => $ingredient->unit,
                 'total' => $total_price
             ]);
@@ -70,6 +88,20 @@ class SupplierController extends Controller
             ]);
         }
         return $this->success(null , 'successfully');
+    }
+
+
+    public function ingredientsSupplied($branchID)
+    {
+        $branch = Branch::where('id' , $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+
+        $ingredientSupplier = IngredientSupplier::where('branch_id' , $branchID)->get();
+
+        return IngredientSupplierResource::collection($ingredientSupplier);
+
     }
 
     public function update(UpdateSupplierRequest $request , Supplier $supplier){

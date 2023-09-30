@@ -10,6 +10,7 @@ use App\Http\Resources\BranchResource;
 use App\Models\Branch;
 use App\Models\BranchSupplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BranchController extends Controller
 {
@@ -20,6 +21,14 @@ class BranchController extends Controller
         return BranchResource::collection($branches);
     }
 
+
+    public function supplierBranches(){
+        $branches = Branch::whereHas('branchSupplier' , fn($query) =>
+            $query->where('supplier_id' , Auth::user()->id)
+        )->get();
+
+        return BranchResource::collection($branches);
+    }
 
     public function store(StoreBranchRequest $request)
     {

@@ -24,6 +24,7 @@ class StoreSupplyRequest extends FormRequest
     {
         return [
             'supplier_id' => [Rule::exists('suppliers' , 'id')],
+            'branch_id' => [ 'required' , Rule::exists('branches' , 'id')],
             'ingredients' => 'array',
             'ingredients.*.ingredient_id' => [Rule::exists('ingredients' , 'id')],
             'ingredients.*.come_in_quantity' => 'required|numeric',

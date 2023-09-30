@@ -56,6 +56,6 @@ class IngredientController extends Controller
 
     public function last5(){
         $ingredients = Ingredient::latest()->take(5)->get();
-        return $ingredients;
+        return IngredientResource::collection($ingredients);
     }
 }
