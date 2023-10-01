@@ -6,7 +6,6 @@ use App\Http\Requests\UpdateingredientsRequest;
 use App\Http\Resources\IngredientResource;
 use App\Models\Branch;
 use App\CustomResponse\ApiResponse;
-use App\Models\Branch;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 
@@ -55,19 +54,17 @@ class IngredientController extends Controller
         return $this->success($ingredient,'ingredient Deleted Successfully From Our System');
     }
 
-<<<<<<< HEAD
-
-    public function lastfiveingredient($branchID) {
-        $branch = Branch::where('id', $branchID)->first();
-        if(!$branch){
-            return $this->error('This Branch Not Found In Our System' , 404);
-        }
-        $ingredient = Ingredient::where('branchID',$branchID)->latest()->take(5)->get();
-        return $ingredient;
-=======
+//<<<<<<< HEAD
+//
+//    public function lastfiveingredient($branchID) {
+//        $branch = Branch::where('id', $branchID)->first();
+//        if(!$branch){
+//            return $this->error('This Branch Not Found In Our System' , 404);
+//        }
+//        $ingredient = Ingredient::where('branchID',$branchID)->latest()->take(5)->get();
+//        return $ingredient;
     public function last5(){
         $ingredients = Ingredient::latest()->take(5)->get();
         return IngredientResource::collection($ingredients);
->>>>>>> c06455dc74efb38a554ec9dd796c192b53eaa3ef
     }
 }
