@@ -55,12 +55,17 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/suppliers/{supplier}' , [SupplierController::class  , 'update']);
     Route::delete('/suppliers/{supplier}' , [SupplierController::class  , 'destroy']);
     Route::post('/supply' , [SupplierController::class  , 'supply']);
+<<<<<<< HEAD
 
     Route::get('/lastfivesuppliers/{branchID}', [SupplierController::class , 'lastfivesuppliers']);
 
     Route::get('/lastfivesuppliers', [SupplierController::class , 'lastfivesuppliers']);
     Route::get('/{branchID}/ingredients-supplied' , [SupplierController::class , 'ingredientsSupplied'])->whereNumber('branchID');
+=======
+>>>>>>> 6dab1cd9983111396731d896994058ab1ff14484
 
+    Route::get('/lastfivesuppliers/{branchID}', [SupplierController::class , 'lastfivesuppliers']);
+    Route::get('/{branchID}/ingredients-supplied' , [SupplierController::class , 'ingredientsSupplied'])->whereNumber('branchID');
     ///// Product
     Route::get('/{branchID}/products' , [ProductController::class , 'index'])->whereNumber('branchID');
     Route::post('/products' , [ProductController::class , 'store']);
@@ -129,6 +134,10 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/ordersDelay' , [OrderController::class , 'calculateDelays']);
     Route::get('/lastfiveorder',[OrderController::class,'lastfiveorder']); // three
 
+<<<<<<< HEAD
+=======
+    /// Ingredient
+>>>>>>> 6dab1cd9983111396731d896994058ab1ff14484
     Route::get('/ingredients',[IngredientController::class, 'index']);
     Route::get('/{branchID}/ingredients',[IngredientController::class, 'indexByBranch'])->whereNumber('branchID');
     Route::post('/ingredients',[IngredientController::class, 'store']);
