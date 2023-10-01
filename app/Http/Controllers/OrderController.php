@@ -11,6 +11,7 @@ use App\Http\Requests\OrderReviewRequest;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\PasOrderResource;
 use App\Models\Order;
+use App\Models\Branch;
 use App\Models\OrderCart;
 use App\Models\SubOrder;
 use App\Models\Table;
@@ -300,6 +301,6 @@ class OrderController extends Controller
 
     public static function lastfiveorder() {
         $orders = Order::latest()->take(5)->get();
-        return $orders;
+        return OrderResource::collection($orders);
     }
 }

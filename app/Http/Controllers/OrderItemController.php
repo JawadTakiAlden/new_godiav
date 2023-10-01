@@ -60,14 +60,16 @@ class OrderItemController extends Controller
                 // calc total price of this order ite,
                 $total_price_of_item = $order_item['quantity'] * $product->price;
                 // initilize array of order item data
-                $order_item_data = array_merge($order_item , ['sub_order_id' => $subOrder['id'] , 'total' => $total_price_of_item]);
+                $order_item_data = array_merge($order_item , ['sub_order_id' => $subOrder['id'] ,
+                'total' => $total_price_of_item]);
                 OrderItem::create($order_item_data);
 
                 // update total price of sub order
                 $total_price_of_sub_order += $total_price_of_item;
             }
 
-            $estimatedTimeOfThisOrder = Carbon::createFromTimestamp($estimatedTime)->format('H:i:s');
+           // $estimatedTimeOfThisOrder = Carbon::createFromTimestamp($estimatedTime)->format('H:i:s');
+            $estimatedTimeOfThisOrder = $estimatedTime;
 
 
             $subOrder->update([
@@ -104,9 +106,9 @@ class OrderItemController extends Controller
                 // then get meal that this order item has it
                 $product = Product::where('id' , $order_item['product_id'])->first();
                 // get estimated time for this order_item
-                $timeInTimestamp = Carbon::parse($product['estimated_time']);
+                $timeInTimestamp = $product['estimated_time'];
                 $totalTimeStamp = $timeInTimestamp->copy()->getTimestamp();
-                $estimatedTime = max($estimatedTime , $totalTimeStamp);
+               // $estimatedTime = max($estimatedTime , $totalTimeStamp);
                 // calc total price of this order ite,
                 $total_price_of_item = $order_item['quantity'] * $product->price;
                 // initilize array of order item data
@@ -116,7 +118,8 @@ class OrderItemController extends Controller
                 // update total price of sub order
                 $total_price_of_sub_order += $total_price_of_item;
             }
-            $estimatedTimeOfThisOrder = Carbon::createFromTimestamp($estimatedTime)->format('H:i:s');
+           // $estimatedTimeOfThisOrder = Carbon::createFromTimestamp($estimatedTime)->format('H:i:s');
+            $estimatedTimeOfThisOrder = $estimatedTime;
 
 
             $subOrder->update([

@@ -74,8 +74,12 @@ class TableController extends Controller
         return response()->json($table);
      }
 
-     public static function not_available(){
+    public function not_available($branchID){
+        $branch = Branch::where('id', $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
         $table = Table::where('in_progress', true)->get();
         return $table;
-     }
+    }
 }

@@ -51,8 +51,12 @@ class ProductController extends Controller
         return $this->success($product,'Product Deleted Successfully From Our System');
     }
 
-    public static function lastfiveproduct() {
-        $products = Product::latest()->take(5)->get();
+    public function lastfiveproduct($branchID) {
+        $branch = Branch::where('id' , $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        $products = Product::where('branch_id', $branchID)->latest()->take(5)->get();
         return $products;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreIngredientsRequst;
 use App\Http\Requests\UpdateingredientsRequest;
 use App\Http\Resources\IngredientResource;
+use App\Models\Branch;
 use App\CustomResponse\ApiResponse;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
@@ -38,5 +39,15 @@ class IngredientController extends Controller
     public function delete(Ingredient $ingredient){
         $ingredient->delete();
         return $this->success($ingredient,'ingredient Deleted Successfully From Our System');
+    }
+
+
+    public function lastfiveingredient($branchID) {
+        $branch = Branch::where('id', $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        $ingredient = Ingredient::where('branchID',$branchID)->latest()->take(5)->get();
+        return $ingredient;
     }
 }

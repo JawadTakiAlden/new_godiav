@@ -54,7 +54,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/suppliers/{supplier}' , [SupplierController::class  , 'update']);
     Route::delete('/suppliers/{supplier}' , [SupplierController::class  , 'destroy']);
     Route::post('/supply' , [SupplierController::class  , 'supply']);
-    Route::get('/lastfivesuppliers', [SupplierController::class , 'lastfivesuppliers']);
+    Route::get('/lastfivesuppliers/{branchID}', [SupplierController::class , 'lastfivesuppliers']);
 
     ///// Product
     Route::get('/{branchID}/products' , [ProductController::class , 'index'])->whereNumber('branchID');
@@ -62,7 +62,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/products/{product}' , [ProductController::class , 'show']);
     Route::post('/products/{product}' , [ProductController::class  , 'update']);
     Route::delete('/products/{product}' , [ProductController::class  , 'destroy']);
-    Route::get('/lastfiveproduct', [ProductController::class, 'lastfiveproduct']);
+    Route::get('/lastfiveproduct/{branchID}', [ProductController::class, 'lastfiveproduct']);
 
     //////  Categories
     Route::get('categories' , [CategoryController::class , 'indexAll']);
@@ -95,7 +95,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/tables/{table}' , [TableController::class , 'show']);
     Route::delete('/tables/{table}' , [TableController::class , 'delete']);
     Route::get('/available_table' , [TableController::class , 'available_table']);
-    Route::get('/not_available' , [TableController::class , 'not_available']);
+    Route::get('/not_available/{branchID}' , [TableController::class , 'not_available']);
 
     ///// Orders
     Route::get('/orders' , [OrderController::class , 'index']);
@@ -127,6 +127,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('ingredients/{ingredient}',[IngredientController::class, 'update']);
     Route::get('ingredients/{ingredient}',[IngredientController::class, 'show']);
     Route::delete('ingredients/{ingredient}',[IngredientController::class, 'delete']);
+    Route::get('/lastfiveingredients/{branchID}',[IngredientController::class,'lastfiveingredient']);
 
     Route::get('/getTops' , [StatisticsController::class , 'getTops']);
 });

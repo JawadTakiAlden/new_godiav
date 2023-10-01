@@ -19,7 +19,7 @@ return new class extends Migration
             $table->tinyInteger('order_state')->default(OrderTypes::WAITING);
             $table->foreignId('table_id')->references('id')->on('tables');
             $table->double('total')->default(0);
-            $table->time('estimated_time')->default('00:00:00');
+            $table->double('estimated_time')->default(1);
             $table->time('delay_time')->default('00:00:00');
             $table->time('early_time')->default('00:00:00');
             $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
