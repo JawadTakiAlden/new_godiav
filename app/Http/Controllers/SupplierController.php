@@ -45,9 +45,13 @@ class SupplierController extends Controller
     }
 
 
-    public function SupplierSupply()
+    public function SupplierSupply($branchID)
     {
-        return IngredientSupplierResource::collection(IngredientSupplier::where('supplier_id' , Auth::user()->id)->get());
+        $branch = Branch::where('id', $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        return IngredientSupplierResource::collection(IngredientSupplier::where('supplier_id' , Auth::user()->id)->where('branchID',$branchID)->get());
     }
 
     public function store(StoreSupplierRequest $request){
