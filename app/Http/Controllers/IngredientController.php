@@ -54,27 +54,13 @@ class IngredientController extends Controller
         return $this->success($ingredient,'ingredient Deleted Successfully From Our System');
     }
 
-<<<<<<< HEAD
-
-    public function last5($branchID){
+    public function last5($branchID)
+    {
         $branch = Branch::where('id', $branchID)->first();
-         if(!$branch){
-             return $this->error('This Branch Not Found In Our System' , 404);
-         }
+        if (!$branch) {
+            return $this->error('This Branch Not Found In Our System', 404);
+        }
         $ingredients = Ingredient::where('branchID', $branchID)->latest()->take(5)->get();
-=======
-//<<<<<<< HEAD
-//
-//    public function lastfiveingredient($branchID) {
-//        $branch = Branch::where('id', $branchID)->first();
-//        if(!$branch){
-//            return $this->error('This Branch Not Found In Our System' , 404);
-//        }
-//        $ingredient = Ingredient::where('branchID',$branchID)->latest()->take(5)->get();
-//        return $ingredient;
-    public function last5(){
-        $ingredients = Ingredient::latest()->take(5)->get();
->>>>>>> 6dab1cd9983111396731d896994058ab1ff14484
         return IngredientResource::collection($ingredients);
     }
 }
