@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\IngredientProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProfileController;
@@ -54,7 +55,12 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/suppliers/{supplier}' , [SupplierController::class  , 'update']);
     Route::delete('/suppliers/{supplier}' , [SupplierController::class  , 'destroy']);
     Route::post('/supply' , [SupplierController::class  , 'supply']);
+<<<<<<< HEAD
     Route::get('/lastfivesuppliers/{branchID}', [SupplierController::class , 'lastfivesuppliers']);
+=======
+    Route::get('/lastfivesuppliers', [SupplierController::class , 'lastfivesuppliers']);
+    Route::get('/{branchID}/ingredients-supplied' , [SupplierController::class , 'ingredientsSupplied'])->whereNumber('branchID');
+>>>>>>> c06455dc74efb38a554ec9dd796c192b53eaa3ef
 
     ///// Product
     Route::get('/{branchID}/products' , [ProductController::class , 'index'])->whereNumber('branchID');
@@ -65,7 +71,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/lastfiveproduct/{branchID}', [ProductController::class, 'lastfiveproduct']);
 
     //////  Categories
-    Route::get('categories' , [CategoryController::class , 'indexAll']);
+    Route::get('/categories' , [CategoryController::class , 'indexAll']);
     Route::get('/{branchID}/categories' , [CategoryController::class , 'index'])->whereNumber('branchID');
     Route::post('/categories' , [CategoryController::class , 'store']);
     Route::get('/categories/{category}' , [CategoryController::class , 'show']);
@@ -79,6 +85,9 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/branches/{branch}' , [BranchController::class , 'show']);
     Route::patch('/branches/{branch}' , [BranchController::class  , 'update']);
     Route::delete('/branches/{branch}' , [BranchController::class  , 'destroy']);
+    Route::get('/supplier-branches' , [BranchController::class , 'supplierBranches']);
+    Route::get('/last5SupplierSupply' , [SupplierController::class , 'last5SupplierSupply']);
+    Route::get('/supplierSupply' , [SupplierController::class , 'SupplierSupply']);
 
     //////  Employees
     Route::get('/employees' , [EmployeeController::class , 'index']);
@@ -122,12 +131,25 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::get('/lastfiveorder',[OrderController::class,'lastfiveorder']);
 
     /// Ingredient
+<<<<<<< HEAD
     Route::get('ingredients',[IngredientController::class, 'index']);
     Route::post('ingredients',[IngredientController::class, 'store']);
     Route::patch('ingredients/{ingredient}',[IngredientController::class, 'update']);
     Route::get('ingredients/{ingredient}',[IngredientController::class, 'show']);
     Route::delete('ingredients/{ingredient}',[IngredientController::class, 'delete']);
     Route::get('/lastfiveingredients/{branchID}',[IngredientController::class,'lastfiveingredient']);
+=======
+    Route::get('/ingredients',[IngredientController::class, 'index']);
+    Route::get('/{branchID}/ingredients',[IngredientController::class, 'indexByBranch'])->whereNumber('branchID');
+    Route::post('/ingredients',[IngredientController::class, 'store']);
+    Route::patch('/ingredients/{ingredient}',[IngredientController::class, 'update']);
+    Route::get('/ingredients/{ingredient}',[IngredientController::class, 'show']);
+    Route::get('/last5Ingredients' ,  [IngredientController::class , 'last5']);
+    Route::delete('/ingredients/{ingredient}',[IngredientController::class, 'delete']);
+
+    Route::patch('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'update']);
+    Route::delete('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'destroy']);
+>>>>>>> c06455dc74efb38a554ec9dd796c192b53eaa3ef
 
     Route::get('/getTops' , [StatisticsController::class , 'getTops']);
 });

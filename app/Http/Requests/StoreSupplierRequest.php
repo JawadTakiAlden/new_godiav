@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreSupplierRequest extends FormRequest
 {
@@ -26,9 +27,11 @@ class StoreSupplierRequest extends FormRequest
             'last_name' => 'required|string',
             'father_name' => 'required|string',
             'phone' => 'required',
-            'email' => 'required|email:unique,suppliers,email',
+            'email' => 'required|email|unique:suppliers,email',
             'image'  => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
-            'password' => 'required|min:7|max:28'
+            'password' => 'required|min:7|max:28',
+            'branches' => 'array',
+            'branches.*' => ['required' , Rule::exists('branches' , 'id')]
         ];
     }
 }

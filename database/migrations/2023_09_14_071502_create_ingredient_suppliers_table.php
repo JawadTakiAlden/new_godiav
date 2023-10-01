@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->foreignId('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
+            $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->double('come_in_quantity');
-            $table->double('unit_price');
             $table->string('unit');
             $table->double('total_price');
             $table->timestamps();

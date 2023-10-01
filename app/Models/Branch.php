@@ -24,7 +24,7 @@ class Branch extends Model
     }
 
     public function branchSupplier(){
-        return $this->belongsToMany(BranchSupplier::class);
+        return $this->hasMany(BranchSupplier::class);
     }
 
     public function employees(){

@@ -25,6 +25,9 @@ class UpdateProductRequst extends FormRequest
         return [
             'image' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
             'category_id' => [Rule::exists('categories','id')],
+            'ingredient_ids' => 'array',
+            'ingredient_ids.*.id' => [Rule::exists('ingredients' , 'id')],
+            'ingredient_ids.*.quantity' => ['numeric']
         ];
     }
 }

@@ -26,19 +26,31 @@ class ProductController extends Controller
     public function store(StoreProudectRequest $request) {
         $request->validated($request->all());
         $product = Product::create($request->all());
-
-        foreach ($request->ingredient_ids as $ingredient_id){
-            IngredientProduct::create([
-               'ingredient_id' =>  $ingredient_id ,
-                'product_id' => $product->id
-            ]);
+        if ($request->ingredient_ids) {
+            foreach ($request->ingredient_ids as $ingredient){
+                IngredientProduct::create([
+                    'ingredient_id' =>  $ingredient['id'] ,
+                    'consumed_quantity' => $ingredient['quantity'],
+                    'product_id' => $product->id
+                ]);
+            }
         }
+
         return ProductResource::make($product);
     }
 
     public function update(UpdateProductRequst $request, Product $product) {
         $request->validated($request->all());
-        $product->update($request->all());
+        $product->update($request->except('ingredient_ids'));
+        if ($request->ingredient_ids) {
+            foreach ($request->ingredient_ids as $ingredient){
+                IngredientProduct::create([
+                    'ingredient_id' =>  $ingredient['id'] ,
+                    'consumed_quantity' => $ingredient['quantity'],
+                    'product_id' => $product->id
+                ]);
+            }
+        }
         return ProductResource::make($product);
     }
 
@@ -51,6 +63,7 @@ class ProductController extends Controller
         return $this->success($product,'Product Deleted Successfully From Our System');
     }
 
+<<<<<<< HEAD
     public function lastfiveproduct($branchID) {
         $branch = Branch::where('id' , $branchID)->first();
         if(!$branch){
@@ -58,5 +71,10 @@ class ProductController extends Controller
         }
         $products = Product::where('branch_id', $branchID)->latest()->take(5)->get();
         return $products;
+=======
+    public static function lastfiveproduct() {
+        $products = Product::latest()->take(5)->get();
+        return ProductResource::collection($products);
+>>>>>>> c06455dc74efb38a554ec9dd796c192b53eaa3ef
     }
 }

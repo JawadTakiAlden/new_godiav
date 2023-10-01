@@ -19,13 +19,6 @@ class BranchResource extends JsonResource
             'name' => $this->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'relationship' => [
-                'categories' => $this->categories,
-                'products' => $this->products,
-                'ingredients' => $this->ingredients,
-                'suppliers' => $this->suppliers,
-                'employees' => $this->employees
-            ]
         ];
     }
 }
