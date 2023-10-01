@@ -21,17 +21,17 @@ class StatisticsController extends Controller
             return $this->error('This Branch Not Found In Our System' , 404);
         }
         return response([
-            'statistics' => $this->statistics()
+            'statistics' => $this->statistics($branchID)
         ]);
     }
 
-    public function statistics(){
-        $products = Product::count();
-        $categories = Category::count();
-        $orders = Order::count();
-        $tables = Table::count();
-        $ingredients = Ingredient::count();
-        $totalSeals = Order::sum('total');
+    public function statistics($branchID){
+        $products = Product::where('branch_id' , $branchID)->count();
+        $categories = Category::where('branch_id' , $branchID)->count();
+        $orders = Order::where('branch_id' , $branchID)->count();
+        $tables = Table::where('branch_id' , $branchID)->count();
+        $ingredients = Ingredient::where('branch_id' , $branchID)->count();
+        $totalSeals = Order::where('branch_id' , $branchID)->sum('total');
         return [
             'product_count' => $products,
             'category_count' =>  $categories ,
