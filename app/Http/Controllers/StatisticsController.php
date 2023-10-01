@@ -8,13 +8,18 @@ use App\Http\Resources\TableResource;
 use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Order;
+use App\Models\Branch;
 use App\Models\Product;
 use App\Models\Table;
 use Illuminate\Http\Request;
 
 class StatisticsController extends Controller
 {
-    public function getTops(){
+    public function getTops($branchID){
+        $branch = Branch::where('id', $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
         return response([
             'statistics' => $this->statistics()
         ]);

@@ -80,11 +80,6 @@ class TableController extends Controller
             return $this->error('This Branch Not Found In Our System' , 404);
         }
         $table = Table::where('in_progress', true)->get();
-<<<<<<< HEAD
-        return $table;
-    }
-=======
         return TableResource::collection($table);
      }
->>>>>>> c06455dc74efb38a554ec9dd796c192b53eaa3ef
 }

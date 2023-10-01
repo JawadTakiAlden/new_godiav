@@ -36,8 +36,12 @@ class SupplierController extends Controller
         return SupplierResource::collection($suppliers);
     }
 
-    public function last5SupplierSupply(){
-        return IngredientSupplierResource::collection(IngredientSupplier::where('supplier_id' , Auth::user()->id)->get());
+    public function last5SupplierSupply($branchID){
+        $branch = Branch::where('id', $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        return IngredientSupplierResource::collection(IngredientSupplier::where('supplier_id' , Auth::user()->id)->latest()->take(5)->get());
     }
 
 

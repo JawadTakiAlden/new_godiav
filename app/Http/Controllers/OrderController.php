@@ -299,8 +299,12 @@ class OrderController extends Controller
         ] , 200);
     }
 
-    public static function lastfiveorder() {
-        $orders = Order::latest()->take(5)->get();
+    public function lastfiveorder($branchID) {
+        $branch = Branch::where('id', $branchID)->first();
+        if(!$branch){
+            return $this->error('This Branch Not Found In Our System' , 404);
+        }
+        $orders = Order::where('branchID', $branchID)->latest()->take(5)->get();
         return OrderResource::collection($orders);
     }
 }
