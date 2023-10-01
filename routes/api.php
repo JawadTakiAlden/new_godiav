@@ -87,7 +87,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/branches/{branch}' , [BranchController::class  , 'update']);
     Route::delete('/branches/{branch}' , [BranchController::class  , 'destroy']);
     Route::get('/supplier-branches' , [BranchController::class , 'supplierBranches']);
-    Route::get('/last5SupplierSupply' , [SupplierController::class , 'last5SupplierSupply']); // four
+    Route::get('/last5SupplierSupply/{branchID}' , [SupplierController::class , 'last5SupplierSupply']); // four
     Route::get('/supplierSupply' , [SupplierController::class , 'SupplierSupply']);
 
     //////  Employees
@@ -129,19 +129,19 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::patch('/order_review/{order}' , [OrderController::class , 'order_review']);
     Route::get('/ordersRate' , [OrderController::class , 'calculateAverages']);
     Route::get('/ordersDelay' , [OrderController::class , 'calculateDelays']);
-    Route::get('/lastfiveorder',[OrderController::class,'lastfiveorder']); // three
+    Route::get('/lastfiveorder/{branchID}',[OrderController::class,'lastfiveorder']); // three
 
     Route::get('/ingredients',[IngredientController::class, 'index']);
     Route::get('/{branchID}/ingredients',[IngredientController::class, 'indexByBranch'])->whereNumber('branchID');
     Route::post('/ingredients',[IngredientController::class, 'store']);
     Route::patch('/ingredients/{ingredient}',[IngredientController::class, 'update']);
     Route::get('/ingredients/{ingredient}',[IngredientController::class, 'show']);
-    Route::get('/last5Ingredients' ,  [IngredientController::class , 'last5']); // one
+    Route::get('/last5Ingredients{branchID}' ,  [IngredientController::class , 'last5']); // one
     Route::delete('/ingredients/{ingredient}',[IngredientController::class, 'delete']);
 
     Route::patch('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'update']);
     Route::delete('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'destroy']);
 
-    Route::get('/getTops' , [StatisticsController::class , 'getTops']); // five
+    Route::get('/getTops/{branchID}' , [StatisticsController::class , 'getTops']); // five
 });
 
