@@ -40,6 +40,12 @@ class SupplierController extends Controller
         return IngredientSupplierResource::collection(IngredientSupplier::where('supplier_id' , Auth::user()->id)->get());
     }
 
+
+    public function SupplierSupply()
+    {
+        return IngredientSupplierResource::collection(IngredientSupplier::where('supplier_id' , Auth::user()->id)->get());
+    }
+
     public function store(StoreSupplierRequest $request){
         $request->validated($request->all());
 
@@ -60,22 +66,23 @@ class SupplierController extends Controller
 
     public function supply(StoreSupplyRequest $request)
     {
+
         $request->validated($request->all());
 
         foreach ($request->ingredients as $ingredient){
-            $total_price = $ingredient->unit_price * $ingredient->come_in_quantity;
+            $total_price = $ingredient['unit_price'] * $ingredient['come_in_quantity'];
             IngredientSupplier::create([
                'supplier_id' =>  Auth::user()->id ,
-                'ingredient_id' => $ingredient->ingredient_id,
+                'ingredient_id' => $ingredient['ingredient_id'],
                 'branch_id' => $request->branch_id,
-                'come_in_quantity' => $ingredient->come_in_quantity,
-                'unit' => $ingredient->unit,
-                'total' => $total_price
+                'come_in_quantity' => $ingredient['come_in_quantity'],
+                'unit' => $ingredient['unit'],
+                'total_price' => $total_price
             ]);
-            $currentIngredient = Ingredient::where('id' , $ingredient->ingredient_id)->first();
-            $updatedQuantity = $ingredient->come_in_quantity;
+            $currentIngredient = Ingredient::where('id' , $ingredient['ingredient_id'])->first();
+            $updatedQuantity = $ingredient['come_in_quantity'];
 
-            if ($ingredient->unit !== $currentIngredient->base_unit){
+            if ($ingredient['unit'] !== $currentIngredient->base_unit){
                 $baseUnit = $currentIngredient->base_unit;
                 if($baseUnit === 'kg'){
                     $updatedQuantity = $updatedQuantity / 1000 ;

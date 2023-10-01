@@ -83,6 +83,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::delete('/branches/{branch}' , [BranchController::class  , 'destroy']);
     Route::get('/supplier-branches' , [BranchController::class , 'supplierBranches']);
     Route::get('/last5SupplierSupply' , [SupplierController::class , 'last5SupplierSupply']);
+    Route::get('/supplierSupply' , [SupplierController::class , 'SupplierSupply']);
 
     //////  Employees
     Route::get('/employees' , [EmployeeController::class , 'index']);
