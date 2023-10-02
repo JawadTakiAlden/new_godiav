@@ -20,11 +20,7 @@ return new class extends Migration
             $table->double('price');
             $table->boolean('visibility')->default(true);
             $table->double('calories');
-<<<<<<< HEAD
             $table->double('estimated_time')->default(1);
-=======
-            $table->integer('estimated_time')->default(5);
->>>>>>> c06455dc74efb38a554ec9dd796c192b53eaa3ef
             $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->timestamps();
         });
