@@ -62,7 +62,16 @@ class OrderItemController extends Controller
                 $order_item_data = array_merge($order_item , ['sub_order_id' => $subOrder['id'] ,
                 'total' => $total_price_of_item]);
                 OrderItem::create($order_item_data);
+                $productIngredients = IngredientProduct::where('product_id' , $product->id)->get();
 
+                if ($productIngredients){
+                    foreach ($productIngredients as $productIngredient){
+                        $currentIngredient = Ingredient::where('id' , $productIngredient->id)->first();
+                        $currentIngredient->update([
+                            'quantity' => $currentIngredient->quantity - ($productIngredient->consumed_quantity * $order_item['quantity'])
+                        ]);
+                    }
+                }
                 // update total price of sub order
                 $total_price_of_sub_order += $total_price_of_item;
             }
@@ -105,7 +114,16 @@ class OrderItemController extends Controller
                 // initilize array of order item data
                 $order_item_data = array_merge($order_item , ['sub_order_id' => $subOrder['id'] , 'total' => $total_price_of_item]);
                 OrderItem::create($order_item_data);
+                $productIngredients = IngredientProduct::where('product_id' , $product->id)->get();
 
+                if ($productIngredients){
+                    foreach ($productIngredients as $productIngredient){
+                        $currentIngredient = Ingredient::where('id' , $productIngredient->id)->first();
+                        $currentIngredient->update([
+                            'quantity' => $currentIngredient->quantity - ($productIngredient->consumed_quantity * $order_item['quantity'])
+                        ]);
+                    }
+                }
                 // update total price of sub order
                 $total_price_of_sub_order += $total_price_of_item;
             }
