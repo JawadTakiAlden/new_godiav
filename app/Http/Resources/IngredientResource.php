@@ -18,6 +18,7 @@ class IngredientResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'quantity' => $this->quantity,
+            'should_notify_quantity' => $this->should_notify_quantity,
             'base_unit' => $this->base_unit,
             'relationship' => [
             'branch' => $this->branch

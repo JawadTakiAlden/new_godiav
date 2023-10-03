@@ -17,10 +17,10 @@ class LessThanQuantityEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public $ingredient ;
-    public function __construct($ingredient)
+    public $notification ;
+    public function __construct($notification)
     {
-        $this->ingredient = $ingredient;
+        $this->notification = $notification;
     }
 
     /**
@@ -30,7 +30,7 @@ class LessThanQuantityEvent implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        return ['less-tan-min-quantity'];
+        return ['less-than-min-quantity'. $this->notification->branch_id];
     }
 
     public function broadcastAs(){
@@ -39,7 +39,7 @@ class LessThanQuantityEvent implements ShouldBroadcast
 
     public function broadcastWith(){
         return [
-            'ingredient' => $this->ingredient
+            'notification' => $this->notification
         ];
     }
 }

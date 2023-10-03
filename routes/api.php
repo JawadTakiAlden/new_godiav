@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\IngredientProductController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\ProfileController;
@@ -136,11 +137,13 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::post('/ingredients',[IngredientController::class, 'store']);
     Route::patch('/ingredients/{ingredient}',[IngredientController::class, 'update']);
     Route::get('/ingredients/{ingredient}',[IngredientController::class, 'show']);
-    Route::get('/last5Ingredients{branchID}' ,  [IngredientController::class , 'last5']); // one
+    Route::get('/last5Ingredients/{branchID}' ,  [IngredientController::class , 'last5']); // one
     Route::delete('/ingredients/{ingredient}',[IngredientController::class, 'delete']);
 
     Route::patch('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'update']);
     Route::delete('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'destroy']);
+
+    Route::get('/notifications/{branchID}' , [NotificationController::class , 'index']);
 
     Route::get('/getTops/{branchID}' , [StatisticsController::class , 'getTops']); // five
 });

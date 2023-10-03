@@ -60,7 +60,7 @@ class IngredientController extends Controller
         if (!$branch) {
             return $this->error('This Branch Not Found In Our System', 404);
         }
-        $ingredients = Ingredient::where('branchID', $branchID)->latest()->take(5)->get();
+        $ingredients = Ingredient::where('branch_id', $branchID)->latest()->take(5)->get();
         return IngredientResource::collection($ingredients);
     }
 }

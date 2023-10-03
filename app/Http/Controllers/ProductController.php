@@ -68,7 +68,7 @@ class ProductController extends Controller
         if(!$branch){
             return $this->error('This Branch Not Found In Our System' , 404);
         }
-        $products = Product::where('branchID',$branchID)->latest()->take(5)->get();
+        $products = Product::where('branch_id',$branchID)->latest()->take(5)->get();
         return ProductResource::collection($products);
     }
 }

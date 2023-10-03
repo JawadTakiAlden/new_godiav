@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Events\LessThanQuantityEvent;
 use App\Http\Resources\IngredientResource;
 use App\Models\Ingredient;
+use App\Models\Notification;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,10 +19,16 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $ingredients = Ingredient::get();
 
+
+
         if ($ingredients) {
             foreach ($ingredients as $ingredient){
                 if ($ingredient->quantity <= $ingredient->should_notify_quantity){
-                    event(new LessThanQuantityEvent(IngredientResource::make($ingredient)));
+                    $notification = Notification::create([
+                        'text' => 'The amount of ' . $ingredient->name .  ' decreased to less than its minimum level',
+                        'branch_id' => $ingredient->branch_id
+                    ]);
+                    event(new LessThanQuantityEvent($notification));
                 }
             }
         }
