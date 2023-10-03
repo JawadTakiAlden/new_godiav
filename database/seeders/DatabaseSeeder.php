@@ -119,12 +119,14 @@ class DatabaseSeeder extends Seeder
 
         $ingredient1 = Ingredient::create([
            'name' => 'ingredient one',
+           'should_notify_quantity' => 5000 ,
             'quantity' => 10000,
             'base_unit' => 'kg',
             'branch_id' => $branch1->id
         ]);
         $ingredient2 = Ingredient::create([
             'name' => 'ingredient two',
+            'should_notify_quantity' => 5000 ,
             'quantity' => 20000,
             'base_unit' => 'kg',
             'branch_id' => $branch1->id
@@ -132,6 +134,7 @@ class DatabaseSeeder extends Seeder
 
         $ingredient3 = Ingredient::create([
             'name' => 'ingredient three',
+            'should_notify_quantity' => 5000 ,
             'quantity' => 400000,
             'base_unit' => 'kg',
             'branch_id' => $branch1->id
@@ -140,6 +143,7 @@ class DatabaseSeeder extends Seeder
         $ingredient4 = Ingredient::create([
             'name' => 'ingredient four',
             'quantity' => 20000,
+            'should_notify_quantity' => 5000 ,
             'base_unit' => 'kg',
             'branch_id' => $branch2->id
         ]);
@@ -147,6 +151,7 @@ class DatabaseSeeder extends Seeder
         $ingredient5 = Ingredient::create([
             'name' => 'ingredient five',
             'quantity' => 400000,
+            'should_notify_quantity' => 5000 ,
             'base_unit' => 'kg',
             'branch_id' => $branch2->id
         ]);
@@ -154,6 +159,7 @@ class DatabaseSeeder extends Seeder
         $ingredient6 = Ingredient::create([
             'name' => 'ingredient sex',
             'quantity' => 400000,
+            'should_notify_quantity' => 5000 ,
             'base_unit' => 'kg',
             'branch_id' => $branch3->id
         ]);

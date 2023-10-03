@@ -28,16 +28,17 @@ class OrderItemController extends Controller
         $table = Table::where('id' , $request->get('table_id'))->first();
 
         // then check if this table has customer on it
-        if ($table['in_progress']){
+        if ($table->in_progress){
 
             // so we want to get in progress order for this table
-            $order = Order::where('table_id' , $table['id'])
+            $order = Order::where('table_id' , $table->id)
                 ->where('in_progress' , true)
                 ->first();
             // then create new sub order and make it refer to table's order
             $subOrder = SubOrder::create([
-                'order_id' => $order['id'],
-                'table_id' => $table['id'],
+                'order_id' => $order->id,
+                'table_id' => $table->id,
+                'branch_id' => $request->branch_id
             ]);
 
             // now we need to update total price for this sub order by loop over order items
@@ -52,24 +53,29 @@ class OrderItemController extends Controller
                 // $productIngredients = IngredientProduct::where('product_id' , );
 
                 // get estimated time for this order_item
-                $curentItemEstimatedTime = $product['estimated_time'];
+                $curentItemEstimatedTime = $product->estimated_time;
                 if ( $estimatedTime < $curentItemEstimatedTime ){
                     $estimatedTime = $curentItemEstimatedTime;
                 }
                 // calc total price of this order ite,
                 $total_price_of_item = $order_item['quantity'] * $product->price;
                 // initilize array of order item data
-                $order_item_data = array_merge($order_item , ['sub_order_id' => $subOrder['id'] ,
+                $order_item_data = array_merge($order_item , ['sub_order_id' => $subOrder->id ,
                 'total' => $total_price_of_item]);
                 OrderItem::create($order_item_data);
+                $productIngredients = IngredientProduct::where('product_id' , $product->id)->get();
 
+                if ($productIngredients){
+                    foreach ($productIngredients as $productIngredient){
+                        $currentIngredient = Ingredient::where('id' , $productIngredient->id)->first();
+                        $currentIngredient->update([
+                            'quantity' => $currentIngredient->quantity - ($productIngredient->consumed_quantity * $order_item['quantity'])
+                        ]);
+                    }
+                }
                 // update total price of sub order
                 $total_price_of_sub_order += $total_price_of_item;
             }
-
-           // $estimatedTimeOfThisOrder = Carbon::createFromTimestamp($estimatedTime)->format('H:i:s');
-            $estimatedTimeOfThisOrder = $estimatedTime;
-
 
             $subOrder->update([
                 'total' => $total_price_of_sub_order,
@@ -85,12 +91,14 @@ class OrderItemController extends Controller
             ]);
 
             $newOrder = Order::create([
-               'table_id' => $table->id
+               'table_id' => $table->id,
+               'branch_id' => $request->branch_id
             ]);
 
             $subOrder = SubOrder::create([
-                'order_id' => $newOrder['id'],
-                'table_id' => $table['id'],
+                'order_id' => $newOrder->id,
+                'table_id' => $table->id,
+                'branch_id' => $request->branch_id
             ]);
 
             $total_price_of_sub_order = 0;
@@ -102,27 +110,26 @@ class OrderItemController extends Controller
                 $product = Product::where('id' , $order_item['product_id'])->first();
                 // get estimated time for this order_item
 
-                $timeInTimestamp = $product['estimated_time'];
-                $totalTimeStamp = $timeInTimestamp->copy()->getTimestamp();
                // $estimatedTime = max($estimatedTime , $totalTimeStamp);
-
-                $curentItemEstimatedTime = $product['estimated_time'];
+                $curentItemEstimatedTime = $product->estimated_time;
                 $estimatedTime = max($estimatedTime , $curentItemEstimatedTime);
-
-                // calc total price of this order ite,
                 $total_price_of_item = $order_item['quantity'] * $product->price;
                 // initilize array of order item data
-                $order_item_data = array_merge($order_item , ['sub_order_id' => $subOrder['id'] , 'total' => $total_price_of_item]);
+                $order_item_data = array_merge($order_item , ['sub_order_id' => $subOrder->id , 'total' => $total_price_of_item]);
                 OrderItem::create($order_item_data);
+                $productIngredients = IngredientProduct::where('product_id' , $product->id)->get();
 
+                if ($productIngredients){
+                    foreach ($productIngredients as $productIngredient){
+                        $currentIngredient = Ingredient::where('id' , $productIngredient->id)->first();
+                        $currentIngredient->update([
+                            'quantity' => $currentIngredient->quantity - ($productIngredient->consumed_quantity * $order_item['quantity'])
+                        ]);
+                    }
+                }
                 // update total price of sub order
                 $total_price_of_sub_order += $total_price_of_item;
             }
-
-           // $estimatedTimeOfThisOrder = Carbon::createFromTimestamp($estimatedTime)->format('H:i:s');
-            $estimatedTimeOfThisOrder = $estimatedTime;
-
-
             $subOrder->update([
                 'total' => $total_price_of_sub_order,
                 'estimated_time' => $estimatedTime
