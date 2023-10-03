@@ -17,21 +17,24 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $ingredients = Ingredient::get();
+
+        $schedule->call(function () {
+            $ingredients = Ingredient::get();
 
 
 
-        if ($ingredients) {
-            foreach ($ingredients as $ingredient){
-                if ($ingredient->quantity <= $ingredient->should_notify_quantity){
-                    $notification = Notification::create([
-                        'text' => 'The amount of ' . $ingredient->name .  ' decreased to less than its minimum level',
-                        'branch_id' => $ingredient->branch_id
-                    ]);
-                    event(new LessThanQuantityEvent($notification));
+            if ($ingredients) {
+                foreach ($ingredients as $ingredient){
+                    if ($ingredient->quantity <= $ingredient->should_notify_quantity){
+                        $notification = Notification::create([
+                            'text' => 'The amount of ' . $ingredient->name .  ' decreased to less than its minimum level',
+                            'branch_id' => $ingredient->branch_id
+                        ]);
+                        event(new LessThanQuantityEvent($notification));
+                    }
                 }
             }
-        }
+        })->everyMinute();
     }
 
     /**

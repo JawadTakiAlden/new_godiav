@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title')->default('running out warning');
             $table->string('text');
             $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

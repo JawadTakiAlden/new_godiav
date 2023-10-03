@@ -144,6 +144,7 @@ Route::middleware(['auth:sanctum'])->group(function (){
     Route::delete('/ingredient-product/{ingredientProduct}' , [IngredientProductController::class , 'destroy']);
 
     Route::get('/notifications/{branchID}' , [NotificationController::class , 'index']);
+    Route::patch('/mark-all-as-read/{branchID}' , [NotificationController::class , 'markAllAsRead']);
 
     Route::get('/getTops/{branchID}' , [StatisticsController::class , 'getTops']); // five
 });
