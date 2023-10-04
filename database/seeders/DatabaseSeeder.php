@@ -33,5 +33,11 @@ class DatabaseSeeder extends Seeder
         Employee::factory()->create();
         Product::factory(100)->create();
         IngredientProduct::factory(100)->create();
+
+        User::create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => '123456789'
+        ]);
     }
 }
