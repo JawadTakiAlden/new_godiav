@@ -17,7 +17,7 @@ class TableFactory extends Factory
     public function definition(): array
     {
         return [
-            'table_number' => $this->faker->uniqid->name,
+            'table_number' => $this->faker->unique()->name,
             'branch_id' => $this->faker->numberBetween(1,10)
         ];
     }

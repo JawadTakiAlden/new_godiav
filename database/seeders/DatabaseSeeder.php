@@ -13,6 +13,7 @@ use App\Models\IngredientSupplier;
 use App\Models\Notification;
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\Table;
 use App\Models\User;
 use App\Types\UserTypes;
 use Illuminate\Database\Seeder;
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
         Employee::factory()->create();
         Product::factory(100)->create();
         IngredientProduct::factory(100)->create();
+        Table::factory(20)->create();
 
         User::create([
             'name' => 'admin',
