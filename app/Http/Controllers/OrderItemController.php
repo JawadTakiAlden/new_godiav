@@ -69,7 +69,7 @@ class OrderItemController extends Controller
 
                 if ($productIngredients){
                     foreach ($productIngredients as $productIngredient){
-                        $currentIngredient = Ingredient::where('id' , $productIngredient->id)->first();
+                        $currentIngredient = Ingredient::where('id' , $productIngredient->ingredient_id)->first();
                         $currentIngredient->update([
                             'quantity' => $currentIngredient->quantity - ($productIngredient->consumed_quantity * $order_item['quantity'])
                         ]);
@@ -130,7 +130,7 @@ class OrderItemController extends Controller
 
                 if ($productIngredients){
                     foreach ($productIngredients as $productIngredient){
-                        $currentIngredient = Ingredient::where('id' , $productIngredient->id)->first();
+                        $currentIngredient = Ingredient::where('id' , $productIngredient->ingredient_id)->first();
                         $currentIngredient->update([
                             'quantity' => $currentIngredient->quantity - ($productIngredient->consumed_quantity * $order_item['quantity'])
                         ]);
