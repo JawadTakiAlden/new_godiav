@@ -24,7 +24,7 @@ class IngredientSupplierFactory extends Factory
             'ingredient_id' => $this->faker->numberBetween( 1 , 100),
             'branch_id' =>  $this->faker->numberBetween( 1 , 10),
             'come_in_quantity' => $come_in_quantity,
-            'unit' => $unit[rand(0 , count($unit) )],
+            'unit' => $unit[rand(0 , count($unit) - 1 )],
             'total_price' => $come_in_quantity * $unit_price
         ];
     }

@@ -22,7 +22,7 @@ class IngredientFactory extends Factory
             'name' => $this->faker->name,
             'quantity' => $quantity ,
             'should_notify_quantity' => $this->faker->numberBetween(0 , $quantity),
-            'base_unit' => $unit[rand(0 , count($unit) )],
+            'base_unit' => $unit[rand(0 , count($unit) - 1 )],
             'branch_id' => $this->faker->numberBetween(1 , 10)
         ];
     }
