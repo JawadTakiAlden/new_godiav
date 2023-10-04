@@ -17,7 +17,9 @@ class IngredientProductFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'ingredient_id' => $this->faker->numberBetween(1,100),
+            'product_id'  => $this->faker->numberBetween(1,100),
+            'consumed_quantity' => $this->faker->numberBetween(100,200)
         ];
     }
 }

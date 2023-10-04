@@ -8,6 +8,7 @@ use App\Models\BranchSupplier;
 use App\Models\Category;
 use App\Models\Employee;
 use App\Models\Ingredient;
+use App\Models\IngredientProduct;
 use App\Models\IngredientSupplier;
 use App\Models\Notification;
 use App\Models\Product;
@@ -31,5 +32,6 @@ class DatabaseSeeder extends Seeder
         BranchSupplier::factory(20)->create();
         Employee::factory()->create();
         Product::factory(100)->create();
+        IngredientProduct::factory(100)->create();
     }
 }
