@@ -304,7 +304,7 @@ class OrderController extends Controller
         if(!$branch){
             return $this->error('This Branch Not Found In Our System' , 404);
         }
-        $orders = Order::where('branch_id', $branchID)->latest()->take(5)->get();
+        $orders = SubOrder::where('branch_id', $branchID)->latest()->take(5)->get();
         return OrderResource::collection($orders);
     }
 }
