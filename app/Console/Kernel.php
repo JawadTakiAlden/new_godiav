@@ -18,23 +18,6 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->call(function () {
-            $ingredients = Ingredient::get();
-
-
-
-            if ($ingredients) {
-                foreach ($ingredients as $ingredient){
-                    if ($ingredient->quantity <= $ingredient->should_notify_quantity){
-                        $notification = Notification::create([
-                            'text' => 'The amount of ' . $ingredient->name .  ' decreased to less than its minimum level',
-                            'branch_id' => $ingredient->branch_id
-                        ]);
-                        event(new LessThanQuantityEvent($notification));
-                    }
-                }
-            }
-        })->everyMinute();
     }
 
     /**

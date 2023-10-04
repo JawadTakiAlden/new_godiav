@@ -15,7 +15,7 @@ class NotificationController extends Controller
         if(!$branch){
             return $this->error('Requested Branch Not Found' , 404);
         }
-        $notifications = Notification::where('branch_id' ,$branchID )->where('is_read' , true)->get();
+        $notifications = Notification::where('branch_id' ,$branchID )->where('is_read' , false)->get();
         return response([
             'data' => $notifications
         ]);

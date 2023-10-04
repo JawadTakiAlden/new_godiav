@@ -8,6 +8,5 @@ class UserTypes
     const KITCHEN = 'kitchen';
     const ACCOUNTANT = 'accountant';
     const ADMIN = 'admin';
-    const SUPPLIER = 'supplier';
     const SUPER_ADMIN = 'superAdmin';
 }

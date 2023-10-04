@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->foreignId('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->boolean('visibility')->default(true);
             $table->timestamps();

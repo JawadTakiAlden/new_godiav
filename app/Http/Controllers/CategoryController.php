@@ -108,6 +108,6 @@ class CategoryController extends Controller
             return $this->error('This Branch Not Found In Our System' , 404);
         }
         $category = Category::where('branch_id',$branchID)->latest()->take(5)->get();
-        return $category;
+        return CategoryResource::collection($category);
     }
 }

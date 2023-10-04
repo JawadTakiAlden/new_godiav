@@ -71,7 +71,7 @@ class TableController extends Controller
 
      public function available_table(){
         $table = Table::where('in_progress', false)->get();
-        return response()->json($table);
+        return TableResource::collection($table);
      }
 
     public function not_available($branchID){

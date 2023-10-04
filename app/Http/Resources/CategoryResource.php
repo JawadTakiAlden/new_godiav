@@ -19,7 +19,7 @@ class CategoryResource extends JsonResource
         'name' => $this->name,
         'image' => $this->image,
         'relationship' => [
-            'products' => $this->product,
+//            'products' => $this->product,
             'branch' => $this->branch
         ]
     ];

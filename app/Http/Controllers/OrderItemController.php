@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 
 use App\CustomResponse\ApiResponse;
 use App\Events\AddWaitingOrderEvent;
+use App\Events\LessThanQuantityEvent;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Ingredient;
 use App\Models\IngredientProduct;
+use App\Models\Notification;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -71,6 +73,13 @@ class OrderItemController extends Controller
                         $currentIngredient->update([
                             'quantity' => $currentIngredient->quantity - ($productIngredient->consumed_quantity * $order_item['quantity'])
                         ]);
+                        if ($currentIngredient->quanityt < $currentIngredient->should_notify_quantity){
+                            $notification = Notification::create([
+                                'text' => 'The amount of ' . $currentIngredient->name .  ' decreased to less than its minimum level',
+                                'branch_id' => $currentIngredient->branch_id
+                            ]);
+                            event(new LessThanQuantityEvent($notification));
+                        }
                     }
                 }
                 // update total price of sub order
@@ -125,6 +134,14 @@ class OrderItemController extends Controller
                         $currentIngredient->update([
                             'quantity' => $currentIngredient->quantity - ($productIngredient->consumed_quantity * $order_item['quantity'])
                         ]);
+
+                        if ($currentIngredient->quanityt < $currentIngredient->should_notify_quantity){
+                            $notification = Notification::create([
+                                'text' => 'The amount of ' . $currentIngredient->name .  ' decreased to less than its minimum level',
+                                'branch_id' => $currentIngredient->branch_id
+                            ]);
+                            event(new LessThanQuantityEvent($notification));
+                        }
                     }
                 }
                 // update total price of sub order
