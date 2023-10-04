@@ -10,6 +10,7 @@ use App\Models\Employee;
 use App\Models\Ingredient;
 use App\Models\IngredientSupplier;
 use App\Models\Notification;
+use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\User;
 use App\Types\UserTypes;
@@ -29,5 +30,6 @@ class DatabaseSeeder extends Seeder
         Category::factory(50)->create();
         BranchSupplier::factory(20)->create();
         Employee::factory()->create();
+        Product::factory(100)->create();
     }
 }
