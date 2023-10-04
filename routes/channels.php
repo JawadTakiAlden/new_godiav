@@ -20,5 +20,5 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 
 
 Broadcast::channel('less-than-min-quantity.{branchId}', function () {
-    return true;
+
 });
